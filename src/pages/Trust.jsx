@@ -14,7 +14,7 @@ function TrustVisual() {
     { icon: '🍱', label: 'RATION',    cx: 170, cy: 62,  lx: 170, ly: 22,  anim: 'tv-bob'    },
     { icon: '🏠', label: 'SHELTER',   cx: 292, cy: 170, lx: 292, ly: 218, anim: 'tv-pulse'  },
     { icon: '📚', label: 'EDUCATION', cx: 170, cy: 278, lx: 170, ly: 326, anim: 'tv-wobble' },
-    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 218, anim: 'tv-flash'  },
+    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 218, anim: 'tv-siren-icon' },
   ]
 
   return (
@@ -70,16 +70,14 @@ function TrustVisual() {
           font-size: 28px; line-height: 1;
         }
 
-        /* ── relief: urgent red-glow flash (emergency siren) ── */
-        @keyframes tv-flash {
-          0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,50,50,0.3)); }
-          25%       { transform: scale(1.28); filter: drop-shadow(0 0 12px rgba(255,50,50,1));  }
-          50%       { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,50,50,0.2)); }
-          75%       { transform: scale(1.18); filter: drop-shadow(0 0 8px rgba(255,100,0,0.9));}
+        /* ── relief: emoji dims as rotating light sweeps past it ── */
+        @keyframes tv-siren-icon {
+          0%, 100% { opacity: 1;   }
+          50%       { opacity: 0.5; }
         }
-        .tv-flash {
+        .tv-siren-icon {
           display: inline-block; transform-origin: center;
-          animation: tv-flash 0.7s ease-in-out infinite;
+          animation: tv-siren-icon 0.7s ease-in-out infinite;
           font-size: 28px; line-height: 1;
         }
       `}</style>
@@ -98,6 +96,13 @@ function TrustVisual() {
           <filter id="tg-blur">
             <feGaussianBlur stdDeviation="2.5" />
           </filter>
+          <filter id="siren-glow">
+            <feGaussianBlur stdDeviation="4" />
+          </filter>
+          {/* Clips the spinning siren light to the Relief circle boundary */}
+          <clipPath id="relief-clip">
+            <circle cx="48" cy="170" r="33" />
+          </clipPath>
         </defs>
 
         {/* Slow-rotating outer dashed ring */}
@@ -186,6 +191,32 @@ function TrustVisual() {
               <animate attributeName="stroke-opacity" values="0.35;0.95;0.35"
                 dur={`${2 + i * 0.35}s`} repeatCount="indefinite" />
             </circle>
+
+            {/* ── RELIEF only: rotating siren light inside the circle ── */}
+            {i === 3 && (
+              <g clipPath="url(#relief-clip)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate"
+                    from="0 48 170" to="360 48 170"
+                    dur="0.65s" repeatCount="indefinite" />
+                  {/* Primary red beam */}
+                  <circle cx="63" cy="170" r="14"
+                    fill="rgba(255,25,25,0.9)" filter="url(#siren-glow)" />
+                  {/* Opposite amber beam — real sirens alternate red + amber */}
+                  <circle cx="33" cy="170" r="11"
+                    fill="rgba(255,120,0,0.7)" filter="url(#siren-glow)" />
+                </g>
+                {/* Trailing glow that fades — rotates slightly slower for depth */}
+                <g>
+                  <animateTransform attributeName="transform" type="rotate"
+                    from="-30 48 170" to="330 48 170"
+                    dur="0.65s" repeatCount="indefinite" />
+                  <circle cx="63" cy="170" r="10"
+                    fill="rgba(255,25,25,0.35)" filter="url(#siren-glow)" />
+                </g>
+              </g>
+            )}
+
             {/* Animated emoji icon via foreignObject */}
             <foreignObject x={s.cx - 22} y={s.cy - 22} width="44" height="44">
               <div xmlns="http://www.w3.org/1999/xhtml"
