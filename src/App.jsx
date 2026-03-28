@@ -1,6 +1,23 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, Component } from 'react'
 import { AnimatePresence } from 'framer-motion'
+
+class ErrorBoundary extends Component {
+  state = { error: false }
+  static getDerivedStateFromError() { return { error: true } }
+  render() {
+    if (this.state.error) return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0A0A0A' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 48, color: '#FFD700', letterSpacing: 4 }}>OOPS</div>
+          <p style={{ fontFamily: 'Space Grotesk, sans-serif', color: 'rgba(245,245,240,0.5)', marginBottom: 24 }}>Something went wrong. Please refresh.</p>
+          <button onClick={() => window.location.reload()} style={{ background: '#FFD700', color: '#0A0A0A', border: 'none', padding: '12px 32px', fontFamily: 'Bebas Neue, sans-serif', fontSize: 18, letterSpacing: 2, cursor: 'pointer' }}>REFRESH</button>
+        </div>
+      </div>
+    )
+    return this.props.children
+  }
+}
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LiquidChrome from './components/LiquidChrome'
@@ -68,6 +85,7 @@ export default function App() {
       <div style={{ position: 'relative', zIndex: 1 }}>
         <ScrollToTop />
         <Navbar />
+        <ErrorBoundary>
         <Suspense fallback={null}>
           <AnimatePresence mode="sync">
             <Routes location={location} key={location.pathname}>
@@ -86,6 +104,7 @@ export default function App() {
             </Routes>
           </AnimatePresence>
         </Suspense>
+        </ErrorBoundary>
         <Footer />
       </div>
     </>
