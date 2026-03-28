@@ -4,8 +4,140 @@ import AnimatedSection from '../components/AnimatedSection'
 
 const pageVariants = {
   initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.2 } },
-  exit: { opacity: 0, transition: { duration: 0.1 } },
+  animate: { opacity: 1, transition: { duration: 0.25 } },
+}
+
+// ── TRUST PAGE HERO VISUAL ──────────────────────────────────────────────────
+// Community flow diagram: central Zariya node → 4 pillar satellites
+function TrustVisual() {
+  const satellites = [
+    { icon: '🍱', label: 'Ration',     cx: 170, cy: 52  },
+    { icon: '🏠', label: 'Shelter',    cx: 298, cy: 170 },
+    { icon: '📚', label: 'Education',  cx: 170, cy: 288 },
+    { icon: '🚨', label: 'Relief',     cx: 42,  cy: 170 },
+  ]
+
+  return (
+    <div style={{ position: 'relative', width: '100%', maxWidth: 360, margin: '0 auto' }}>
+      <svg viewBox="0 0 340 340" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+        <defs>
+          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#FFD700" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#FFD700" stopOpacity="0"   />
+          </radialGradient>
+          <filter id="blur2">
+            <feGaussianBlur stdDeviation="2" />
+          </filter>
+        </defs>
+
+        {/* Outer decorative ring — slow rotate */}
+        <circle cx="170" cy="170" r="148" fill="none"
+          stroke="rgba(255,215,0,0.07)" strokeWidth="1" strokeDasharray="6 10" >
+          <animateTransform attributeName="transform" type="rotate"
+            from="0 170 170" to="360 170 170" dur="30s" repeatCount="indefinite" />
+        </circle>
+
+        {/* Mid ring */}
+        <circle cx="170" cy="170" r="115" fill="none"
+          stroke="rgba(255,215,0,0.05)" strokeWidth="1" />
+
+        {/* Connection lines */}
+        {satellites.map((s, i) => (
+          <line key={i}
+            x1="170" y1="170" x2={s.cx} y2={s.cy}
+            stroke="rgba(255,215,0,0.18)" strokeWidth="1" strokeDasharray="5 5" />
+        ))}
+
+        {/* Flowing particles — 3 per path at staggered offsets */}
+        {satellites.map((s, si) => {
+          const path = `M 170 170 L ${s.cx} ${s.cy}`
+          const dur  = `${2.4 + si * 0.15}s`
+          return [0, 1, 2].map(j => (
+            <circle key={`${si}-${j}`}
+              r={4 - j * 1.2}
+              fill="#FFD700"
+              opacity={0.85 - j * 0.28}
+              filter="url(#blur2)">
+              <animateMotion dur={dur}
+                begin={`-${j * (parseFloat(dur) / 3).toFixed(2)}s`}
+                repeatCount="indefinite"
+                path={path} />
+            </circle>
+          ))
+        })}
+
+        {/* Center glow halo */}
+        <circle cx="170" cy="170" r="70" fill="url(#coreGlow)">
+          <animate attributeName="r" values="65;75;65" dur="3s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite" />
+        </circle>
+
+        {/* Center pulse ring */}
+        <circle cx="170" cy="170" r="52" fill="none"
+          stroke="rgba(255,215,0,0.35)" strokeWidth="1.5">
+          <animate attributeName="r"       values="50;60;50" dur="2.8s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.6;0;0.6" dur="2.8s" repeatCount="indefinite" />
+        </circle>
+
+        {/* Center node circle */}
+        <circle cx="170" cy="170" r="46"
+          fill="rgba(8,8,8,0.88)" stroke="#FFD700" strokeWidth="1.5" />
+
+        {/* Satellite node circles */}
+        {satellites.map((s, i) => (
+          <g key={i}>
+            {/* Glow halo */}
+            <circle cx={s.cx} cy={s.cy} r="36"
+              fill="rgba(255,215,0,0.06)" filter="url(#blur2)">
+              <animate attributeName="opacity"
+                values="0.4;0.9;0.4"
+                dur={`${2 + i * 0.35}s`}
+                repeatCount="indefinite" />
+            </circle>
+            {/* Node border */}
+            <circle cx={s.cx} cy={s.cy} r="30"
+              fill="rgba(8,8,8,0.9)" stroke="rgba(255,215,0,0.5)" strokeWidth="1.5">
+              <animate attributeName="stroke-opacity"
+                values="0.4;0.9;0.4"
+                dur={`${2 + i * 0.35}s`}
+                repeatCount="indefinite" />
+            </circle>
+          </g>
+        ))}
+      </svg>
+
+      {/* Centre label */}
+      <div style={{
+        position: 'absolute', top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        textAlign: 'center', pointerEvents: 'none',
+      }}>
+        <div style={{ fontSize: 28, lineHeight: 1 }}>❤️</div>
+        <div style={{
+          fontFamily: 'Bebas Neue, sans-serif', fontSize: 11,
+          letterSpacing: 3, color: '#FFD700', marginTop: 4,
+        }}>ZARIYA</div>
+      </div>
+
+      {/* Satellite labels */}
+      {satellites.map((s, i) => (
+        <div key={i} style={{
+          position: 'absolute',
+          top:  `${(s.cy / 340) * 100}%`,
+          left: `${(s.cx / 340) * 100}%`,
+          transform: 'translate(-50%, -50%)',
+          textAlign: 'center', pointerEvents: 'none',
+        }}>
+          <div style={{ fontSize: 20, lineHeight: 1 }}>{s.icon}</div>
+          <div style={{
+            fontFamily: 'Space Grotesk, sans-serif', fontSize: 8,
+            letterSpacing: 1.5, color: 'rgba(255,215,0,0.75)',
+            textTransform: 'uppercase', marginTop: 3, whiteSpace: 'nowrap',
+          }}>{s.label}</div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 const pillars = [
@@ -33,73 +165,47 @@ export default function Trust() {
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
 
-      {/* Hero — fully transparent, aurora shows through */}
-      <div
-        style={{
-          paddingTop: 160,
-          paddingBottom: 80,
-          position: 'relative',
-          minHeight: '70vh',
-          display: 'flex',
-          alignItems: 'flex-end',
-        }}
-      >
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <AnimatedSection>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255,215,0,0.08)',
-                border: '1px solid rgba(255,215,0,0.3)',
-                padding: '6px 16px',
-                marginBottom: 28,
-              }}
-            >
-              <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 11, letterSpacing: 3, color: '#FFD700', textTransform: 'uppercase' }}>
-                Social Initiative by TanTech LLC
-              </span>
-            </div>
-            <h1
-              style={{
-                fontFamily: 'Bebas Neue, sans-serif',
-                fontSize: 'clamp(52px, 10vw, 120px)',
-                letterSpacing: 4,
-                lineHeight: 0.9,
-                color: '#F5F5F0',
-                marginBottom: 28,
-                textShadow: '0 4px 40px rgba(0,0,0,0.9)',
-              }}
-            >
-              ZARIYA-E-<span style={{ color: '#FFD700' }}>AL-AMAAL</span>
-            </h1>
-            <p
-              style={{
-                fontFamily: 'Bebas Neue, sans-serif',
-                fontSize: 'clamp(18px, 2.5vw, 28px)',
-                letterSpacing: 3,
-                color: 'rgba(245,245,240,0.6)',
-                marginBottom: 24,
-                textShadow: '0 2px 16px rgba(0,0,0,0.9)',
-              }}
-            >
-              THE MEANS OF GOOD DEEDS
-            </p>
-            <p
-              style={{
-                fontFamily: 'Space Grotesk, sans-serif',
-                fontSize: 18,
-                color: 'rgba(245,245,240,0.7)',
-                maxWidth: 640,
-                lineHeight: 1.8,
-                textShadow: '0 2px 16px rgba(0,0,0,0.9)',
-              }}
-            >
-              We bridge the gap between those who wish to give and those in urgent need, providing a transparent, efficient pipeline for food, nutrition, and education.
-            </p>
-          </AnimatedSection>
+      {/* Hero — two-column, aurora shows through */}
+      <div style={{ minHeight: '85vh', display: 'flex', alignItems: 'center', paddingTop: 140, paddingBottom: 80, position: 'relative' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }} className="trust-hero-grid">
+
+            {/* Left — text */}
+            <AnimatedSection direction="right">
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.3)', padding: '6px 16px', marginBottom: 28 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#FFD700', display: 'inline-block' }} />
+                <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 11, letterSpacing: 3, color: '#FFD700', textTransform: 'uppercase' }}>
+                  Social Initiative by TanTech LLC
+                </span>
+              </div>
+              <h1 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(48px, 7vw, 96px)', letterSpacing: 4, lineHeight: 0.9, color: '#F5F5F0', marginBottom: 20, textShadow: '0 4px 40px rgba(0,0,0,0.9)' }}>
+                ZARIYA-E-<br /><span style={{ color: '#FFD700' }}>AL-AMAAL</span>
+              </h1>
+              <p style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(16px, 2vw, 24px)', letterSpacing: 3, color: 'rgba(245,245,240,0.55)', marginBottom: 20, textShadow: '0 2px 16px rgba(0,0,0,0.9)' }}>
+                THE MEANS OF GOOD DEEDS
+              </p>
+              <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 16, color: 'rgba(245,245,240,0.7)', maxWidth: 500, lineHeight: 1.8, marginBottom: 36, textShadow: '0 2px 16px rgba(0,0,0,0.9)' }}>
+                We bridge the gap between those who wish to give and those in urgent need — a transparent, efficient pipeline for food, shelter, and education.
+              </p>
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                <a href="mailto:info@tantech-llc.com?subject=Zariya Donation" className="btn-primary">Donate Now →</a>
+                <a href="#pillars" className="btn-outline">Our Programs</a>
+              </div>
+            </AnimatedSection>
+
+            {/* Right — animated visual */}
+            <AnimatedSection direction="left">
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <TrustVisual />
+              </div>
+            </AnimatedSection>
+
+          </div>
         </div>
+        <style>{`
+          .trust-hero-grid { grid-template-columns: 1fr 1fr !important; }
+          @media (max-width: 768px) { .trust-hero-grid { grid-template-columns: 1fr !important; } }
+        `}</style>
       </div>
 
       {/* Stats — glassmorphic, not solid */}
@@ -246,7 +352,7 @@ export default function Trust() {
       </div>
 
       {/* Pillars */}
-      <div className="section" style={{ background: 'rgba(5,5,5,0.35)', backdropFilter: 'blur(8px)' }}>
+      <div id="pillars" className="section" style={{ background: 'rgba(5,5,5,0.35)', backdropFilter: 'blur(8px)' }}>
         <div className="container">
           <AnimatedSection>
             <span className="section-label">What We Do</span>

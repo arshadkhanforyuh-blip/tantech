@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useLayoutEffect, Component } from 'react'
-import { AnimatePresence } from 'framer-motion'
 
 
 class ErrorBoundary extends Component {
@@ -89,22 +88,20 @@ export default function App() {
         <Navbar />
         <ErrorBoundary>
         <Suspense fallback={null}>
-          <AnimatePresence mode="sync">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/"                   element={<Home />} />
-              <Route path="/about"              element={<About />} />
-              <Route path="/services"           element={<Services />} />
-              <Route path="/trust"              element={<Trust />} />
-              <Route path="/contact"            element={<Contact />} />
-              <Route path="/software-solutions" element={<SoftwareSolutions />} />
-              <Route path="/ai-tools"           element={<AITools />} />
-              <Route path="/shopify-sols"       element={<Shopify />} />
-              <Route path="/tax"                element={<Tax />} />
-              <Route path="/bench-sales"        element={<BenchSales />} />
-              <Route path="/manpower-staffing"  element={<Manpower />} />
-              <Route path="/rpo"                element={<RPO />} />
-            </Routes>
-          </AnimatePresence>
+          <Routes>
+            <Route path="/"                   element={<Home />} />
+            <Route path="/about"              element={<About />} />
+            <Route path="/services"           element={<Services />} />
+            <Route path="/trust"              element={<Trust />} />
+            <Route path="/contact"            element={<Contact />} />
+            <Route path="/software-solutions" element={<SoftwareSolutions />} />
+            <Route path="/ai-tools"           element={<AITools />} />
+            <Route path="/shopify-sols"       element={<Shopify />} />
+            <Route path="/tax"                element={<Tax />} />
+            <Route path="/bench-sales"        element={<BenchSales />} />
+            <Route path="/manpower-staffing"  element={<Manpower />} />
+            <Route path="/rpo"                element={<RPO />} />
+          </Routes>
         </Suspense>
         </ErrorBoundary>
         <Footer />
