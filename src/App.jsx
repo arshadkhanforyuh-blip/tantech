@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useLayoutEffect, Component } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
+
 class ErrorBoundary extends Component {
   state = { error: false }
   static getDerivedStateFromError() { return { error: true } }
@@ -21,6 +22,7 @@ class ErrorBoundary extends Component {
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LiquidChrome from './components/LiquidChrome'
+import SoftAurora from './components/SoftAurora'
 
 // Code-split all pages so they load on demand
 const Home              = lazy(() => import('./pages/Home'))
@@ -47,19 +49,38 @@ function ScrollToTop() {
 
 export default function App() {
   const location = useLocation()
+  const isTrust = location.pathname === '/trust'
 
   return (
     <>
-      {/* ── FIXED BACKGROUND ── */}
+      {/* ── FIXED BACKGROUND — one WebGL context at a time ── */}
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#000' }}>
-        <LiquidChrome
-          baseColor={[0.1, 0.082, 0.0]}
-          speed={0.2}
-          amplitude={0.3}
-          frequencyX={3}
-          frequencyY={3}
-          interactive={true}
-        />
+        {isTrust ? (
+          <SoftAurora
+            color1="#FFD700"
+            color2="#ffffff"
+            speed={0.6}
+            scale={1.5}
+            brightness={2.2}
+            noiseFrequency={2.5}
+            noiseAmplitude={1.0}
+            bandHeight={0.5}
+            bandSpread={1.5}
+            octaveDecay={0.1}
+            layerOffset={1.0}
+            colorSpeed={1.0}
+            mouseInfluence={0.25}
+          />
+        ) : (
+          <LiquidChrome
+            baseColor={[0.1, 0.082, 0.0]}
+            speed={0.2}
+            amplitude={0.3}
+            frequencyX={3}
+            frequencyY={3}
+            interactive={true}
+          />
+        )}
       </div>
 
       {/* ── SITE CONTENT — layered above animation ── */}
