@@ -15,7 +15,7 @@ const service = {
     },
     {
       icon: '📈',
-      title: 'IPO & Pre-Exit Readiness',
+      title: 'RPO & Pre-Exit Readiness',
       desc: 'Assembling the leadership team and board composition required to satisfy institutional investors and public market scrutiny.',
     },
     {
