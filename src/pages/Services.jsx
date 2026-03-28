@@ -42,7 +42,7 @@ const services = [
     title: 'Taxation & Compliance',
     short: 'Protect your bottom line globally.',
     desc: 'We protect your bottom line by architecting proactive fiscal strategies and rigorous compliance frameworks tailored for global commerce.',
-    tags: ['IRS Compliance', 'GST/VAT', 'Tax Strategy', 'Audit Defense'],
+    tags: ['IRS Compliance', 'Federal & State Tax', 'Tax Strategy', 'Audit Defense'],
     path: '/tax',
   },
   {
