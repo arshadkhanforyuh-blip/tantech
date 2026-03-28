@@ -48,6 +48,13 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const subject = encodeURIComponent(
+      `TanTech Inquiry — ${form.service ? form.service.toUpperCase() : 'General'} from ${form.name}`
+    )
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nCompany: ${form.company || 'N/A'}\nEmail: ${form.email}\nBudget: ${form.budget || 'Not specified'}\nService: ${form.service || 'Not specified'}\nHow they heard about us: ${form.source || 'Not specified'}\n\nMessage:\n${form.message || '(no message)'}`
+    )
+    window.location.href = `mailto:info@tantech-llc.com?subject=${subject}&body=${body}`
     setSubmitted(true)
   }
 
