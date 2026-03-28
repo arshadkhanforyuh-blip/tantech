@@ -113,15 +113,11 @@ button {
 }
 
 /* ── BUTTON ANIMATIONS ── */
+/* btn-pulse: ripple on hover — short lived, fine to animate */
 @keyframes btn-pulse {
   0%   { box-shadow: 0 0 0 0 rgba(255,215,0,0.55); }
   70%  { box-shadow: 0 0 0 14px rgba(255,215,0,0); }
   100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); }
-}
-
-@keyframes btn-glow {
-  0%, 100% { box-shadow: 0 0 18px rgba(255,215,0,0.3), 0 6px 28px rgba(255,215,0,0.2); }
-  50%       { box-shadow: 0 0 32px rgba(255,215,0,0.6), 0 6px 40px rgba(255,215,0,0.35); }
 }
 
 /* Buttons */
@@ -138,18 +134,20 @@ button {
   transition: all 0.25s ease;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   position: relative;
-  animation: btn-glow 3s ease-in-out infinite;
+  /* Static glow — no continuous animation (box-shadow animation = repaint every frame) */
+  box-shadow: 0 0 18px rgba(255,215,0,0.28), 0 6px 24px rgba(255,215,0,0.18);
 }
 
 .btn-primary:hover {
   background: var(--yellow-light);
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 0 40px rgba(255,215,0,0.7), 0 12px 40px rgba(255,215,0,0.4);
-  animation: btn-pulse 0.6s ease-out, btn-glow 3s ease-in-out infinite;
+  animation: btn-pulse 0.6s ease-out;
 }
 
 .btn-primary:active {
   transform: translateY(-1px) scale(1.01);
+  animation: none;
 }
 
 .btn-outline {

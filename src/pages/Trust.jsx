@@ -8,223 +8,142 @@ const pageVariants = {
 }
 
 // ── TRUST PAGE HERO VISUAL ──────────────────────────────────────────────────
+// Performance rules: no foreignObject, no blur filter on animated elements,
+// no filter: in @keyframes — only transform + opacity (GPU composited).
 function TrustVisual() {
-  const satellites = [
-    // cx/cy = circle centre · lx/ly = label pos · anim = CSS class for icon
-    { icon: '🍱', label: 'RATION',    cx: 170, cy: 62,  lx: 170, ly: 22,  anim: 'tv-bob'    },
-    { icon: '🏠', label: 'SHELTER',   cx: 292, cy: 170, lx: 292, ly: 218, anim: 'tv-pulse'  },
-    { icon: '📚', label: 'EDUCATION', cx: 170, cy: 278, lx: 170, ly: 326, anim: 'tv-wobble' },
-    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 218, anim: 'tv-siren-icon' },
+  const SAT = [
+    { icon: '🍱', label: 'RATION',    cx: 170, cy: 62,  lx: 170, ly: 22,  cls: 'tv-bob'    },
+    { icon: '🏠', label: 'SHELTER',   cx: 292, cy: 170, lx: 292, ly: 218, cls: 'tv-pulse'  },
+    { icon: '📚', label: 'EDUCATION', cx: 170, cy: 278, lx: 170, ly: 326, cls: 'tv-wobble' },
+    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 218, cls: 'tv-siren'  },
   ]
 
   return (
     <div style={{ width: '100%', maxWidth: 380, margin: '0 auto' }}>
       <style>{`
-        /* ── heart lub-dub ── */
+        /* transform-box + transform-origin ensure scale/rotate from element centre in SVG */
         @keyframes zariya-beat {
-          0%   { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.5)); }
-          12%  { transform: scale(1.5);  filter: drop-shadow(0 0 16px rgba(255,60,60,1));  }
-          24%  { transform: scale(1.06); filter: drop-shadow(0 0 6px rgba(255,60,60,0.6)); }
-          38%  { transform: scale(1.32); filter: drop-shadow(0 0 11px rgba(255,60,60,0.9));}
-          56%  { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.4)); }
-          100% { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.4)); }
+          0%, 100% { transform: scale(1);    }
+          12%       { transform: scale(1.5);  }
+          24%       { transform: scale(1.06); }
+          38%       { transform: scale(1.32); }
+          56%       { transform: scale(1);    }
         }
         .zariya-heart {
-          display: inline-block; transform-origin: center;
+          transform-box: fill-box; transform-origin: center;
           animation: zariya-beat 0.85s ease-in-out infinite;
-          font-size: 32px; line-height: 1;
+          will-change: transform;
         }
+        @keyframes tv-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        .tv-bob   { transform-box:fill-box; transform-origin:center; animation:tv-bob 2.2s ease-in-out infinite; will-change:transform; }
 
-        /* ── ration: gentle float up-down (food being handed out) ── */
-        @keyframes tv-bob {
-          0%, 100% { transform: translateY(0px);  }
-          50%       { transform: translateY(-7px); }
-        }
-        .tv-bob {
-          display: inline-block; transform-origin: center;
-          animation: tv-bob 2.2s ease-in-out infinite;
-          font-size: 28px; line-height: 1;
-        }
+        @keyframes tv-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+        .tv-pulse { transform-box:fill-box; transform-origin:center; animation:tv-pulse 2.6s ease-in-out infinite; will-change:transform; }
 
-        /* ── shelter: warm slow scale-pulse (home breathing) ── */
-        @keyframes tv-pulse {
-          0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,215,0,0.2)); }
-          50%       { transform: scale(1.22); filter: drop-shadow(0 0 10px rgba(255,215,0,0.7)); }
-        }
-        .tv-pulse {
-          display: inline-block; transform-origin: center;
-          animation: tv-pulse 2.6s ease-in-out infinite;
-          font-size: 28px; line-height: 1;
-        }
+        @keyframes tv-wobble { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(-9deg)} 75%{transform:rotate(9deg)} }
+        .tv-wobble{ transform-box:fill-box; transform-origin:center; animation:tv-wobble 3s ease-in-out infinite; will-change:transform; }
 
-        /* ── education: left-right page-flip wobble ── */
-        @keyframes tv-wobble {
-          0%, 100% { transform: rotate(0deg);  }
-          20%       { transform: rotate(-10deg); }
-          60%       { transform: rotate(10deg);  }
-          80%       { transform: rotate(-4deg);  }
-        }
-        .tv-wobble {
-          display: inline-block; transform-origin: center bottom;
-          animation: tv-wobble 3s ease-in-out infinite;
-          font-size: 28px; line-height: 1;
-        }
-
-        /* ── relief: emoji dims as rotating light sweeps past it ── */
-        @keyframes tv-siren-icon {
-          0%, 100% { opacity: 1;   }
-          50%       { opacity: 0.5; }
-        }
-        .tv-siren-icon {
-          display: inline-block; transform-origin: center;
-          animation: tv-siren-icon 0.7s ease-in-out infinite;
-          font-size: 28px; line-height: 1;
-        }
+        @keyframes tv-siren { 0%,100%{opacity:1} 50%{opacity:0.45} }
+        .tv-siren { animation:tv-siren 0.65s ease-in-out infinite; }
       `}</style>
 
-      {/* viewBox 340 × 350 — extra 10px at bottom keeps EDUCATION label inside */}
       <svg viewBox="0 0 340 350" style={{ width: '100%', height: 'auto' }}>
         <defs>
-          <radialGradient id="tg-core" cx="50%" cy="49%" r="50%">
+          {/* Static gradients — no per-frame cost */}
+          <radialGradient id="tg-core" cx="50%" cy="50%" r="50%">
             <stop offset="0%"   stopColor="#FFD700" stopOpacity="0.28" />
             <stop offset="100%" stopColor="#FFD700" stopOpacity="0"    />
           </radialGradient>
-          <radialGradient id="tg-red" cx="50%" cy="49%" r="50%">
-            <stop offset="0%"   stopColor="#ff4444" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#ff4444" stopOpacity="0"    />
+          <radialGradient id="siren-r" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#ff2020" stopOpacity="1" />
+            <stop offset="100%" stopColor="#ff2020" stopOpacity="0" />
           </radialGradient>
-          <filter id="tg-blur">
-            <feGaussianBlur stdDeviation="2.5" />
-          </filter>
-          <filter id="siren-glow">
-            <feGaussianBlur stdDeviation="4" />
-          </filter>
-          {/* Clips the spinning siren light to the Relief circle boundary */}
+          <radialGradient id="siren-a" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#ff8800" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#ff8800" stopOpacity="0"   />
+          </radialGradient>
           <clipPath id="relief-clip">
             <circle cx="48" cy="170" r="33" />
           </clipPath>
         </defs>
 
-        {/* Slow-rotating outer dashed ring */}
-        <circle cx="170" cy="170" r="146" fill="none"
+        {/* Outer ring — slow rotate, GPU composited */}
+        <circle cx="170" cy="170" r="144" fill="none"
           stroke="rgba(255,215,0,0.07)" strokeWidth="1" strokeDasharray="6 10">
           <animateTransform attributeName="transform" type="rotate"
             from="0 170 170" to="360 170 170" dur="30s" repeatCount="indefinite" />
         </circle>
 
-        {/* Mid ring */}
-        <circle cx="170" cy="170" r="112" fill="none"
+        {/* Static mid ring */}
+        <circle cx="170" cy="170" r="110" fill="none"
           stroke="rgba(255,215,0,0.05)" strokeWidth="1" />
 
-        {/* Dashed spoke lines */}
-        {satellites.map((s, i) => (
+        {/* Spokes */}
+        {SAT.map((s, i) => (
           <line key={i} x1="170" y1="170" x2={s.cx} y2={s.cy}
-            stroke="rgba(255,215,0,0.18)" strokeWidth="1" strokeDasharray="5 5" />
+            stroke="rgba(255,215,0,0.15)" strokeWidth="1" strokeDasharray="5 5" />
         ))}
 
-        {/* Flowing gold particles — 3 staggered per spoke */}
-        {satellites.map((s, si) => {
-          const path   = `M 170 170 L ${s.cx} ${s.cy}`
-          const durSec = 2.4 + si * 0.15
-          const dur    = `${durSec}s`
-          return [0, 1, 2].map(j => (
-            <circle key={`${si}-${j}`}
-              r={Math.max(0.8, 4 - j * 1.3)}
-              fill="#FFD700"
-              opacity={0.85 - j * 0.28}
-              filter="url(#tg-blur)">
-              <animateMotion dur={dur}
-                begin={`-${(j * durSec / 3).toFixed(2)}s`}
+        {/* Particles — 2 per spoke, NO filter (plain circles) */}
+        {SAT.map((s, si) => {
+          const path = `M 170 170 L ${s.cx} ${s.cy}`
+          const dur  = 2.4 + si * 0.15
+          return [0, 1].map(j => (
+            <circle key={`${si}-${j}`} r={3.5 - j * 1.5} fill="#FFD700" opacity={0.75 - j * 0.3}>
+              <animateMotion dur={`${dur}s`} begin={`-${(j * dur / 2).toFixed(2)}s`}
                 repeatCount="indefinite" path={path} />
             </circle>
           ))
         })}
 
-        {/* Heartbeat-synced red glow halo */}
-        <circle cx="170" cy="170" r="68" fill="url(#tg-red)">
-          <animate attributeName="r"       values="60;78;62;73;60" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.5;1;0.65;0.9;0.5" dur="0.85s" repeatCount="indefinite" />
+        {/* Heartbeat glow — opacity only, GPU composited */}
+        <circle cx="170" cy="170" r="58" fill="url(#tg-core)">
+          <animate attributeName="opacity" values="0.35;1;0.45;0.85;0.35" dur="0.85s" repeatCount="indefinite" />
         </circle>
 
-        {/* Gold glow halo */}
-        <circle cx="170" cy="170" r="62" fill="url(#tg-core)">
-          <animate attributeName="r"       values="58;72;58" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.5;0.95;0.5" dur="0.85s" repeatCount="indefinite" />
+        {/* Single pulse ring */}
+        <circle cx="170" cy="170" r="46" fill="none" stroke="rgba(255,70,70,0.45)" strokeWidth="1.5">
+          <animate attributeName="r"       values="44;62;46;58;44" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.8;0;0.5;0;0.8"  dur="0.85s" repeatCount="indefinite" />
         </circle>
 
-        {/* Expanding pulse ring */}
-        <circle cx="170" cy="170" r="50" fill="none"
-          stroke="rgba(255,80,80,0.55)" strokeWidth="1.5">
-          <animate attributeName="r"       values="48;66;50;62;48" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.9;0;0.6;0;0.9" dur="0.85s" repeatCount="indefinite" />
-        </circle>
+        {/* Center circle */}
+        <circle cx="170" cy="170" r="46" fill="rgba(6,6,6,0.96)" stroke="#FFD700" strokeWidth="1.5" />
 
-        {/* Center dark circle */}
-        <circle cx="170" cy="170" r="48"
-          fill="rgba(6,6,6,0.93)" stroke="#FFD700" strokeWidth="1.5" />
-
-        {/* ❤️ beating heart — foreignObject gives full CSS animation */}
-        <foreignObject x="138" y="136" width="64" height="52">
-          <div xmlns="http://www.w3.org/1999/xhtml"
-            style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}>
-            <span className="zariya-heart">❤️</span>
-          </div>
-        </foreignObject>
-
-        {/* ZARIYA wordmark */}
-        <text x="170" y="191" textAnchor="middle"
+        {/* ❤️ — SVG text, no foreignObject */}
+        <text x="170" y="169" textAnchor="middle" dominantBaseline="middle"
+          fontSize="28" className="zariya-heart">❤️</text>
+        <text x="170" y="190" textAnchor="middle" dominantBaseline="auto"
           fill="#FFD700" fontSize="8" letterSpacing="3.5"
           fontFamily="'Bebas Neue', sans-serif">ZARIYA</text>
 
-        {/* Satellite nodes */}
-        {satellites.map((s, i) => (
+        {/* Satellites */}
+        {SAT.map((s, i) => (
           <g key={i}>
-            {/* Glow halo */}
-            <circle cx={s.cx} cy={s.cy} r="38"
-              fill="rgba(255,215,0,0.06)" filter="url(#tg-blur)">
-              <animate attributeName="opacity" values="0.3;0.9;0.3"
-                dur={`${2 + i * 0.35}s`} repeatCount="indefinite" />
-            </circle>
-            {/* Circle border — larger r=34 for bigger icons */}
+            {/* Border circle, stroke-opacity only */}
             <circle cx={s.cx} cy={s.cy} r="34"
-              fill="rgba(6,6,6,0.93)" stroke="rgba(255,215,0,0.55)" strokeWidth="1.5">
-              <animate attributeName="stroke-opacity" values="0.35;0.95;0.35"
+              fill="rgba(6,6,6,0.96)" stroke="rgba(255,215,0,0.5)" strokeWidth="1.5">
+              <animate attributeName="stroke-opacity" values="0.3;0.9;0.3"
                 dur={`${2 + i * 0.35}s`} repeatCount="indefinite" />
             </circle>
 
-            {/* ── RELIEF only: rotating siren light inside the circle ── */}
+            {/* RELIEF only — rotating siren with radial-gradient fill (no blur filter) */}
             {i === 3 && (
               <g clipPath="url(#relief-clip)">
                 <g>
                   <animateTransform attributeName="transform" type="rotate"
-                    from="0 48 170" to="360 48 170"
-                    dur="0.65s" repeatCount="indefinite" />
-                  {/* Primary red beam */}
-                  <circle cx="63" cy="170" r="14"
-                    fill="rgba(255,25,25,0.9)" filter="url(#siren-glow)" />
-                  {/* Opposite amber beam — real sirens alternate red + amber */}
-                  <circle cx="33" cy="170" r="11"
-                    fill="rgba(255,120,0,0.7)" filter="url(#siren-glow)" />
-                </g>
-                {/* Trailing glow that fades — rotates slightly slower for depth */}
-                <g>
-                  <animateTransform attributeName="transform" type="rotate"
-                    from="-30 48 170" to="330 48 170"
-                    dur="0.65s" repeatCount="indefinite" />
-                  <circle cx="63" cy="170" r="10"
-                    fill="rgba(255,25,25,0.35)" filter="url(#siren-glow)" />
+                    from="0 48 170" to="360 48 170" dur="0.65s" repeatCount="indefinite" />
+                  <circle cx="63" cy="170" r="22" fill="url(#siren-r)" />
+                  <circle cx="33" cy="170" r="18" fill="url(#siren-a)" />
                 </g>
               </g>
             )}
 
-            {/* Animated emoji icon via foreignObject */}
-            <foreignObject x={s.cx - 22} y={s.cy - 22} width="44" height="44">
-              <div xmlns="http://www.w3.org/1999/xhtml"
-                style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}>
-                <span className={s.anim}>{s.icon}</span>
-              </div>
-            </foreignObject>
-            {/* Label outside circle */}
+            {/* Icon — SVG text, no foreignObject */}
+            <text x={s.cx} y={s.cy} textAnchor="middle" dominantBaseline="middle"
+              fontSize="22" className={s.cls}>{s.icon}</text>
+
+            {/* Label */}
             <text x={s.lx} y={s.ly} textAnchor="middle"
               fill="rgba(255,215,0,0.75)" fontSize="7.5" letterSpacing="2"
               fontFamily="'Space Grotesk', sans-serif" fontWeight="600">
