@@ -3,7 +3,7 @@ import { RPOVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '07 — RPO & Executive Placement',
-  title: 'C-SUITE\nREADY.\n|IPO| READY.',
+  title: 'C-SUITE\nREADY.\n|RPO| READY.',
   description:
     'We eliminate RPO talent gaps by sourcing C-suite and key technical leaders, aligning equity incentives, and streamlining HR processes — ensuring precise fits for your growth trajectory and public market demands.',
   subtitle: 'EXECUTIVE CAPABILITIES',

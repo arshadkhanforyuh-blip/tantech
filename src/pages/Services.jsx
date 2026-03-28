@@ -67,7 +67,7 @@ const services = [
     num: '07',
     icon: '🚀',
     title: 'RPO & Executive Placement',
-    short: 'C-suite and key leaders for IPO readiness.',
+    short: 'C-suite and key leaders sourced for your growth trajectory.',
     desc: 'We eliminate RPO talent gaps by sourcing C-suite and key technical leaders, aligning equity incentives, and streamlining HR processes.',
     tags: ['C-Suite', 'Equity Alignment', 'RPO', 'Executive Search'],
     path: '/rpo',
