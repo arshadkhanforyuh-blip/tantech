@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { ShopifyVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '03 — Shopify Development',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function Shopify() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<ShopifyVisual />} />
 }

@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { TaxVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '04 — Taxation & Compliance',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function Tax() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<TaxVisual />} />
 }

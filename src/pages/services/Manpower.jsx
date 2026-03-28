@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { ManpowerVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '06 — Manpower & Staffing',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function Manpower() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<ManpowerVisual />} />
 }

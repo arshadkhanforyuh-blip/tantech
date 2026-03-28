@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { SoftwareVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '01 — Software & Web Solutions',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function SoftwareSolutions() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<SoftwareVisual />} />
 }

@@ -8,57 +8,44 @@ const pageVariants = {
   exit: { opacity: 0, transition: { duration: 0.1 } },
 }
 
-export default function ServicePage({ service }) {
+export default function ServicePage({ service, heroVisual }) {
   const { label, title, subtitle, description, features = [], process = [], stack = [], icon } = service
 
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
 
-      {/* ── HERO — transparent, animation shows through ── */}
-      <div
-        style={{
-          minHeight: '60vh',
-          display: 'flex',
-          alignItems: 'flex-end',
-          position: 'relative',
-          paddingBottom: 80,
-          paddingTop: 160,
-        }}
-      >
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <AnimatedSection>
-            <span className="section-label">{label}</span>
-            <h1
-              style={{
-                fontFamily: 'Bebas Neue, sans-serif',
-                fontSize: 'clamp(52px, 9vw, 120px)',
-                color: '#F5F5F0',
-                letterSpacing: 4,
-                lineHeight: 0.9,
-                marginBottom: 24,
-                textShadow: '0 4px 40px rgba(0,0,0,0.9)',
-              }}
-            >
-              {title.split('\n').map((line, i) => (
-                <span key={i} style={{ display: 'block' }}>
-                  {line.includes('|')
-                    ? line.split('|').map((part, j) => (
-                        <span key={j} style={j % 2 === 1 ? { color: '#FFD700' } : {}}>{part}</span>
-                      ))
-                    : line}
-                </span>
-              ))}
-            </h1>
-            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 18, color: 'rgba(245,245,240,0.7)', maxWidth: 640, lineHeight: 1.8, textShadow: '0 2px 16px rgba(0,0,0,0.9)' }}>
-              {description}
-            </p>
-            <div style={{ marginTop: 40, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <Link to="/contact" className="btn-primary">Get Started</Link>
-              <Link to="/services" className="btn-outline">All Services</Link>
-            </div>
-          </AnimatedSection>
+      {/* ── HERO ── */}
+      <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', position: 'relative', paddingBottom: 80, paddingTop: 140 }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: heroVisual ? '1fr 1fr' : '1fr', gap: 60, alignItems: 'center' }} className="service-hero-grid">
+            <AnimatedSection direction="right">
+              <span className="section-label">{label}</span>
+              <h1 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(42px, 7vw, 100px)', color: '#F5F5F0', letterSpacing: 4, lineHeight: 0.9, marginBottom: 24, textShadow: '0 4px 40px rgba(0,0,0,0.9)' }}>
+                {title.split('\n').map((line, i) => (
+                  <span key={i} style={{ display: 'block' }}>
+                    {line.includes('|') ? line.split('|').map((part, j) => (
+                      <span key={j} style={j % 2 === 1 ? { color: '#FFD700' } : {}}>{part}</span>
+                    )) : line}
+                  </span>
+                ))}
+              </h1>
+              <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 17, color: 'rgba(245,245,240,0.7)', maxWidth: 520, lineHeight: 1.8, textShadow: '0 2px 16px rgba(0,0,0,0.9)', marginBottom: 40 }}>
+                {description}
+              </p>
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                <Link to="/contact" className="btn-primary">Get Started</Link>
+                <Link to="/services" className="btn-outline">All Services</Link>
+              </div>
+            </AnimatedSection>
+            {heroVisual && (
+              <AnimatedSection direction="left">
+                <div style={{ display: 'flex', justifyContent: 'center' }}>{heroVisual}</div>
+              </AnimatedSection>
+            )}
+          </div>
         </div>
       </div>
+      <style>{`.service-hero-grid { grid-template-columns: ${heroVisual ? '1fr 1fr' : '1fr'} !important; } @media (max-width: 768px) { .service-hero-grid { grid-template-columns: 1fr !important; } }`}</style>
 
       {/* ── FEATURES — glass panel ── */}
       {features.length > 0 && (

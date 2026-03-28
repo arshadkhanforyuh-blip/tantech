@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { AIVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '02 — AI & Workflow Automation',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function AITools() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<AIVisual />} />
 }

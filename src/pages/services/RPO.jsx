@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { RPOVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '07 — RPO & Executive Placement',
@@ -66,5 +67,5 @@ const service = {
 }
 
 export default function RPO() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<RPOVisual />} />
 }

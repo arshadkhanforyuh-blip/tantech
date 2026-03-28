@@ -1,4 +1,5 @@
 import ServicePage from '../../components/ServicePage'
+import { BenchSalesVisual } from '../../components/ServiceVisuals'
 
 const service = {
   label: '05 — Bench Sales & Placement',
@@ -65,5 +66,5 @@ const service = {
 }
 
 export default function BenchSales() {
-  return <ServicePage service={service} />
+  return <ServicePage service={service} heroVisual={<BenchSalesVisual />} />
 }

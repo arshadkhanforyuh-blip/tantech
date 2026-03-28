@@ -77,7 +77,7 @@ export default function Footer() {
             <div style={{ display: 'flex', gap: 12 }}>
               {[
                 { icon: 'in', label: 'LinkedIn', href: 'https://linkedin.com/company/tantech-llc-consulting' },
-                { icon: 'ig', label: 'Instagram', href: 'https://instagram.com/tantech.llc' },
+                { icon: 'ig', label: 'Instagram', href: 'https://www.instagram.com/tantechllc/' },
               ].map((s) => (
                 <a
                   key={s.label}
