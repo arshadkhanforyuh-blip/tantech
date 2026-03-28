@@ -1,0 +1,204 @@
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import AnimatedSection from './AnimatedSection'
+
+const pageVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.2 } },
+  exit: { opacity: 0, transition: { duration: 0.1 } },
+}
+
+export default function ServicePage({ service }) {
+  const { label, title, subtitle, description, features = [], process = [], stack = [], icon } = service
+
+  return (
+    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+
+      {/* ── HERO — transparent, animation shows through ── */}
+      <div
+        style={{
+          minHeight: '60vh',
+          display: 'flex',
+          alignItems: 'flex-end',
+          position: 'relative',
+          paddingBottom: 80,
+          paddingTop: 160,
+        }}
+      >
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <AnimatedSection>
+            <span className="section-label">{label}</span>
+            <h1
+              style={{
+                fontFamily: 'Bebas Neue, sans-serif',
+                fontSize: 'clamp(52px, 9vw, 120px)',
+                color: '#F5F5F0',
+                letterSpacing: 4,
+                lineHeight: 0.9,
+                marginBottom: 24,
+                textShadow: '0 4px 40px rgba(0,0,0,0.9)',
+              }}
+            >
+              {title.split('\n').map((line, i) => (
+                <span key={i} style={{ display: 'block' }}>
+                  {line.includes('|')
+                    ? line.split('|').map((part, j) => (
+                        <span key={j} style={j % 2 === 1 ? { color: '#FFD700' } : {}}>{part}</span>
+                      ))
+                    : line}
+                </span>
+              ))}
+            </h1>
+            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 18, color: 'rgba(245,245,240,0.7)', maxWidth: 640, lineHeight: 1.8, textShadow: '0 2px 16px rgba(0,0,0,0.9)' }}>
+              {description}
+            </p>
+            <div style={{ marginTop: 40, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <Link to="/contact" className="btn-primary">Get Started</Link>
+              <Link to="/services" className="btn-outline">All Services</Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+
+      {/* ── FEATURES — glass panel ── */}
+      {features.length > 0 && (
+        <div className="section glass-section">
+          <div className="container">
+            <AnimatedSection>
+              <span className="section-label">What We Offer</span>
+              <h2 className="section-title">{subtitle}</h2>
+            </AnimatedSection>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginTop: 48 }}>
+              {features.map((feat, i) => (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <div
+                    className="card"
+                    style={{ height: '100%' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.5)'
+                      e.currentTarget.style.transform = 'translateY(-6px)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.1)'
+                      e.currentTarget.style.transform = 'translateY(0)'
+                    }}
+                  >
+                    <div style={{ fontSize: 32, marginBottom: 16, filter: 'drop-shadow(0 0 8px rgba(255,215,0,0.5))' }}>{feat.icon}</div>
+                    <h3 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 22, letterSpacing: 2, color: '#FFD700', marginBottom: 12 }}>{feat.title}</h3>
+                    <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 14, color: 'rgba(245,245,240,0.6)', lineHeight: 1.7 }}>{feat.desc}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── TECH STACK — glass panel ── */}
+      {stack.length > 0 && (
+        <div className="section glass-section-dark">
+          <div className="container">
+            <AnimatedSection>
+              <span className="section-label">Technology</span>
+              <h2 className="section-title">OUR <span style={{ color: '#FFD700' }}>STACK</span></h2>
+            </AnimatedSection>
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 40 }}>
+              {stack.map((tech, i) => (
+                <AnimatedSection key={i} delay={i * 0.06}>
+                  <div
+                    style={{
+                      background: 'rgba(15,15,15,0.65)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,215,0,0.15)',
+                      padding: '12px 24px',
+                      fontFamily: 'Space Grotesk, sans-serif',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: '#F5F5F0',
+                      letterSpacing: 1,
+                      transition: 'all 0.3s',
+                      cursor: 'default',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#FFD700'
+                      e.currentTarget.style.color = '#FFD700'
+                      e.currentTarget.style.background = 'rgba(255,215,0,0.08)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.15)'
+                      e.currentTarget.style.color = '#F5F5F0'
+                      e.currentTarget.style.background = 'rgba(15,15,15,0.65)'
+                    }}
+                  >
+                    {tech}
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── PROCESS — glass panel ── */}
+      {process.length > 0 && (
+        <div className="section glass-section">
+          <div className="container">
+            <AnimatedSection>
+              <span className="section-label">Methodology</span>
+              <h2 className="section-title">OUR <span style={{ color: '#FFD700' }}>PROCESS</span></h2>
+            </AnimatedSection>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 2, marginTop: 48 }}>
+              {process.map((step, i) => (
+                <AnimatedSection key={i} delay={i * 0.1} style={{ height: '100%' }}>
+                  <div
+                    style={{
+                      background: 'rgba(8,8,8,0.7)',
+                      backdropFilter: 'blur(12px)',
+                      border: '1px solid rgba(255,215,0,0.1)',
+                      padding: '40px 28px',
+                      position: 'relative',
+                      transition: 'all 0.3s',
+                      height: '100%',
+                      boxSizing: 'border-box',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(20,20,20,0.8)'
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.35)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(8,8,8,0.7)'
+                      e.currentTarget.style.borderColor = 'rgba(255,215,0,0.1)'
+                    }}
+                  >
+                    <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 72, color: 'rgba(255,215,0,0.08)', position: 'absolute', top: 12, right: 20, lineHeight: 1, letterSpacing: -2 }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h3 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 20, letterSpacing: 2, color: '#FFD700', marginBottom: 12, position: 'relative' }}>{step.title}</h3>
+                    <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 14, color: 'rgba(245,245,240,0.55)', lineHeight: 1.7, position: 'relative' }}>{step.desc}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── CTA — transparent ── */}
+      <div style={{ padding: '100px 0', textAlign: 'center', borderTop: '1px solid rgba(255,215,0,0.1)' }}>
+        <div className="container">
+          <AnimatedSection>
+            <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>Ready to Start?</span>
+            <h2 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(40px, 6vw, 80px)', letterSpacing: 4, color: '#F5F5F0', marginBottom: 20, textShadow: '0 4px 30px rgba(0,0,0,0.8)' }}>
+              LET'S BUILD SOMETHING <span style={{ color: '#FFD700' }}>GREAT</span>
+            </h2>
+            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 16, color: 'rgba(245,245,240,0.5)', marginBottom: 40 }}>
+              Book a free discovery call and let's discuss how we can help you scale.
+            </p>
+            <Link to="/contact" className="btn-primary" style={{ fontSize: 20, padding: '16px 48px' }}>Book a Call →</Link>
+          </AnimatedSection>
+        </div>
+      </div>
+
+    </motion.div>
+  )
+}
