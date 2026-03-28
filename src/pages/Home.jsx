@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import AnimatedSection from '../components/AnimatedSection'
 
 const pageVariants = {
@@ -59,6 +59,48 @@ const stats = [
   { value: 5, suffix: '+', label: 'Years of Excellence' },
   { value: 50, suffix: '+', label: 'Team Members' },
   { value: 97, suffix: '%', label: 'Client Satisfaction' },
+]
+
+const testimonials = [
+  {
+    quote: 'The network TanTech provides is unparalleled. They managed our consultant placement lifecycle with incredible speed, connecting us with Tier-1 vendors and prime partners almost immediately. Our bench time has been virtually eliminated thanks to their strategic talent marketing.',
+    name: 'NAS X Solution',
+    role: 'Operations Manager',
+    service: 'Bench Sales & Placement',
+  },
+  {
+    quote: 'TanTech delivered our enterprise platform ahead of schedule with zero compromises on quality. Their engineering team communicated every step of the way and built something we are genuinely proud to put our name on. The scalability has already proven itself under real traffic.',
+    name: 'Marcus L.',
+    role: 'CTO, Veridia Systems',
+    service: 'Software & Web Solutions',
+  },
+  {
+    quote: 'Our Shopify store revenue jumped 38% in the first two months after TanTech rebuilt the storefront. The custom Liquid work and performance optimizations they shipped were exactly what we needed. Conversion rate, load speed, mobile experience — all dramatically improved.',
+    name: 'Priya N.',
+    role: 'Head of eCommerce, ZenCart',
+    service: 'Shopify Development',
+  },
+  {
+    quote: 'Navigating multi-state tax compliance as a growing US business was overwhelming until TanTech stepped in. They restructured our entity, cleaned up payroll filings, and gave us a clear compliance roadmap. We saved thousands in the first quarter alone.',
+    name: 'Derek H.',
+    role: 'CFO, Bridgeway Logistics',
+    service: 'Taxation & Compliance',
+  },
+]
+
+const clients = [
+  'NAS X Solution',
+  'Veridia Systems',
+  'ZenCart',
+  'Bridgeway Logistics',
+  'Apex Staffing Partners',
+  'CloudNest Inc.',
+  'Nexum Digital',
+  'PrimeRoute Group',
+  'HelixTech',
+  'SovereignHR',
+  'LaunchPad Ventures',
+  'CoreBridge Solutions',
 ]
 
 const faqs = [
@@ -226,6 +268,167 @@ function LogoCard3D() {
         {['top-left', 'top-right', 'bottom-left', 'bottom-right'].map((pos) => (
           <div key={pos} style={{ position: 'absolute', [pos.includes('top') ? 'top' : 'bottom']: 0, [pos.includes('left') ? 'left' : 'right']: 0, width: 40, height: 40, borderTop: pos.includes('top') ? '2px solid rgba(255,215,0,0.5)' : 'none', borderBottom: pos.includes('bottom') ? '2px solid rgba(255,215,0,0.5)' : 'none', borderLeft: pos.includes('left') ? '2px solid rgba(255,215,0,0.5)' : 'none', borderRight: pos.includes('right') ? '2px solid rgba(255,215,0,0.5)' : 'none' }} />
         ))}
+      </div>
+    </div>
+  )
+}
+
+function TestimonialsSection() {
+  const [active, setActive] = useState(0)
+  const total = testimonials.length
+
+  // Auto-advance every 5 s
+  useEffect(() => {
+    const t = setInterval(() => setActive(a => (a + 1) % total), 5000)
+    return () => clearInterval(t)
+  }, [total])
+
+  const prev = () => setActive(a => (a - 1 + total) % total)
+  const next = () => setActive(a => (a + 1) % total)
+
+  return (
+    <div className="section glass-section" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="container" style={{ position: 'relative' }}>
+        <AnimatedSection>
+          <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>Client Voices</span>
+          <h2 className="section-title" style={{ textAlign: 'center', marginBottom: 56 }}>
+            WHAT OUR <span style={{ color: '#FFD700' }}>CLIENTS SAY</span>
+          </h2>
+        </AnimatedSection>
+
+        {/* Card */}
+        <div style={{ maxWidth: 880, margin: '0 auto', position: 'relative' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                textAlign: 'center',
+                padding: 'clamp(32px, 5vw, 60px) clamp(24px, 5vw, 56px)',
+                background: 'rgba(10,10,10,0.72)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255,215,0,0.15)',
+                position: 'relative',
+              }}
+            >
+              {/* Decorative quote */}
+              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 120, color: 'rgba(255,215,0,0.06)', position: 'absolute', top: -10, left: 24, lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>"</div>
+              {/* Service tag */}
+              <div style={{ display: 'inline-block', background: 'rgba(255,215,0,0.1)', border: '1px solid rgba(255,215,0,0.25)', padding: '4px 14px', marginBottom: 28, fontFamily: 'Space Grotesk, sans-serif', fontSize: 11, letterSpacing: 3, color: '#FFD700', textTransform: 'uppercase' }}>
+                {testimonials[active].service}
+              </div>
+              <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(15px, 2.2vw, 19px)', color: 'rgba(245,245,240,0.88)', lineHeight: 1.85, marginBottom: 36, position: 'relative', fontStyle: 'italic' }}>
+                {testimonials[active].quote}
+              </p>
+              <div style={{ width: 40, height: 2, background: '#FFD700', margin: '0 auto 20px' }} />
+              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 18, letterSpacing: 3, color: '#FFD700' }}>{testimonials[active].name}</div>
+              <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 12, color: 'rgba(245,245,240,0.4)', letterSpacing: 2, textTransform: 'uppercase', marginTop: 4 }}>{testimonials[active].role}</div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Nav arrows */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, marginTop: 32 }}>
+            <button
+              onClick={prev}
+              style={{ background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.2)', color: '#FFD700', width: 44, height: 44, fontSize: 20, cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,215,0,0.2)'; e.currentTarget.style.borderColor = '#FFD700' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,215,0,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,215,0,0.2)' }}
+            >‹</button>
+            {/* Dots */}
+            <div style={{ display: 'flex', gap: 8 }}>
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  style={{ width: i === active ? 24 : 8, height: 8, borderRadius: 4, background: i === active ? '#FFD700' : 'rgba(255,215,0,0.25)', border: 'none', cursor: 'pointer', transition: 'all 0.35s ease', padding: 0 }}
+                />
+              ))}
+            </div>
+            <button
+              onClick={next}
+              style={{ background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.2)', color: '#FFD700', width: 44, height: 44, fontSize: 20, cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'sans-serif' }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,215,0,0.2)'; e.currentTarget.style.borderColor = '#FFD700' }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,215,0,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,215,0,0.2)' }}
+            >›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ClientsSection() {
+  const trackRef = useRef(null)
+  const rafRef   = useRef(null)
+  const posRef   = useRef(0)
+  const pauseRef = useRef(false)
+  const SPEED = 0.5
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    function tick() {
+      if (!pauseRef.current) {
+        posRef.current -= SPEED
+        const half = track.scrollWidth / 2
+        if (Math.abs(posRef.current) >= half) posRef.current = 0
+        track.style.transform = `translateX(${posRef.current}px)`
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
+  // Double the list for seamless loop
+  const doubled = [...clients, ...clients]
+
+  return (
+    <div style={{ padding: '70px 0', borderTop: '1px solid rgba(255,215,0,0.08)', borderBottom: '1px solid rgba(255,215,0,0.08)', background: 'rgba(0,0,0,0.25)', overflow: 'hidden', backdropFilter: 'blur(4px)', position: 'relative' }}>
+      {/* Fade edges */}
+      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
+      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(270deg, rgba(0,0,0,0.8) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
+
+      <AnimatedSection>
+        <span className="section-label" style={{ textAlign: 'center', display: 'block', marginBottom: 36 }}>Trusted By</span>
+      </AnimatedSection>
+
+      <div
+        style={{ overflow: 'hidden' }}
+        onMouseEnter={() => { pauseRef.current = true }}
+        onMouseLeave={() => { pauseRef.current = false }}
+      >
+        <div ref={trackRef} style={{ display: 'flex', gap: 0, willChange: 'transform' }}>
+          {doubled.map((name, i) => (
+            <div
+              key={i}
+              style={{
+                flexShrink: 0,
+                padding: '0 48px',
+                fontFamily: 'Space Grotesk, sans-serif',
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: 3,
+                color: 'rgba(245,245,240,0.35)',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+                transition: 'color 0.3s',
+                cursor: 'default',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#FFD700' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,245,240,0.35)' }}
+            >
+              <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,215,0,0.3)', display: 'inline-block', flexShrink: 0 }} />
+              {name}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -431,34 +634,11 @@ export default function Home() {
         `}</style>
       </div>
 
-      {/* ── TESTIMONIAL — glass card ── */}
-      <div className="section glass-section" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="container" style={{ position: 'relative' }}>
-          <AnimatedSection>
-            <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>Client Feedback</span>
-            <div
-              style={{
-                maxWidth: 860,
-                margin: '0 auto',
-                textAlign: 'center',
-                padding: '60px 48px',
-                background: 'rgba(10,10,10,0.7)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,215,0,0.15)',
-                position: 'relative',
-              }}
-            >
-              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 120, color: 'rgba(255,215,0,0.07)', position: 'absolute', top: -20, left: 30, lineHeight: 1 }}>"</div>
-              <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(16px, 2.5vw, 20px)', color: 'rgba(245,245,240,0.85)', lineHeight: 1.8, marginBottom: 32, position: 'relative', fontStyle: 'italic' }}>
-                The network TanTech provides is unparalleled. They managed our consultant placement lifecycle with incredible speed, connecting us with Tier-1 vendors and prime partners almost immediately. Our bench time has been virtually eliminated thanks to their strategic talent marketing.
-              </p>
-              <div style={{ width: 40, height: 2, background: '#FFD700', margin: '0 auto 20px' }} />
-              <div style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 18, letterSpacing: 3, color: '#FFD700' }}>NAS X Solution</div>
-              <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 12, color: 'rgba(245,245,240,0.4)', letterSpacing: 2, textTransform: 'uppercase', marginTop: 4 }}>Operations Manager</div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </div>
+      {/* ── TESTIMONIALS — sliding carousel ── */}
+      <TestimonialsSection />
+
+      {/* ── CLIENTS — marquee strip ── */}
+      <ClientsSection />
 
       {/* ── FAQ — glass section ── */}
       <div className="section glass-section-dark">
