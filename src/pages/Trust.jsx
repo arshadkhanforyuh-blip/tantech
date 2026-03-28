@@ -9,37 +9,83 @@ const pageVariants = {
 
 // ── TRUST PAGE HERO VISUAL ──────────────────────────────────────────────────
 function TrustVisual() {
-  // cx/cy = node centres; lx/ly = label anchor; la = SVG textAnchor
   const satellites = [
-    { icon: '🍱', label: 'RATION',    cx: 170, cy: 62,  lx: 170, ly: 24,  la: 'middle' },
-    { icon: '🏠', label: 'SHELTER',   cx: 292, cy: 170, lx: 292, ly: 216, la: 'middle' },
-    { icon: '📚', label: 'EDUCATION', cx: 170, cy: 278, lx: 170, ly: 324, la: 'middle' },
-    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 216, la: 'middle' },
+    // cx/cy = circle centre · lx/ly = label pos · anim = CSS class for icon
+    { icon: '🍱', label: 'RATION',    cx: 170, cy: 62,  lx: 170, ly: 22,  anim: 'tv-bob'    },
+    { icon: '🏠', label: 'SHELTER',   cx: 292, cy: 170, lx: 292, ly: 218, anim: 'tv-pulse'  },
+    { icon: '📚', label: 'EDUCATION', cx: 170, cy: 278, lx: 170, ly: 326, anim: 'tv-wobble' },
+    { icon: '🚨', label: 'RELIEF',    cx: 48,  cy: 170, lx: 48,  ly: 218, anim: 'tv-flash'  },
   ]
 
   return (
-    <div style={{ width: '100%', maxWidth: 360, margin: '0 auto' }}>
-      {/* Heartbeat keyframes — lub-dub pattern at ~70 BPM */}
+    <div style={{ width: '100%', maxWidth: 380, margin: '0 auto' }}>
       <style>{`
+        /* ── heart lub-dub ── */
         @keyframes zariya-beat {
           0%   { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.5)); }
-          12%  { transform: scale(1.45); filter: drop-shadow(0 0 14px rgba(255,60,60,1)); }
-          24%  { transform: scale(1.05); filter: drop-shadow(0 0 6px rgba(255,60,60,0.6)); }
-          36%  { transform: scale(1.28); filter: drop-shadow(0 0 10px rgba(255,60,60,0.85)); }
-          55%  { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.4)); }
+          12%  { transform: scale(1.5);  filter: drop-shadow(0 0 16px rgba(255,60,60,1));  }
+          24%  { transform: scale(1.06); filter: drop-shadow(0 0 6px rgba(255,60,60,0.6)); }
+          38%  { transform: scale(1.32); filter: drop-shadow(0 0 11px rgba(255,60,60,0.9));}
+          56%  { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.4)); }
           100% { transform: scale(1);    filter: drop-shadow(0 0 4px rgba(255,60,60,0.4)); }
         }
         .zariya-heart {
-          display: inline-block;
-          transform-origin: center;
+          display: inline-block; transform-origin: center;
           animation: zariya-beat 0.85s ease-in-out infinite;
-          line-height: 1;
-          font-size: 28px;
+          font-size: 32px; line-height: 1;
+        }
+
+        /* ── ration: gentle float up-down (food being handed out) ── */
+        @keyframes tv-bob {
+          0%, 100% { transform: translateY(0px);  }
+          50%       { transform: translateY(-7px); }
+        }
+        .tv-bob {
+          display: inline-block; transform-origin: center;
+          animation: tv-bob 2.2s ease-in-out infinite;
+          font-size: 28px; line-height: 1;
+        }
+
+        /* ── shelter: warm slow scale-pulse (home breathing) ── */
+        @keyframes tv-pulse {
+          0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,215,0,0.2)); }
+          50%       { transform: scale(1.22); filter: drop-shadow(0 0 10px rgba(255,215,0,0.7)); }
+        }
+        .tv-pulse {
+          display: inline-block; transform-origin: center;
+          animation: tv-pulse 2.6s ease-in-out infinite;
+          font-size: 28px; line-height: 1;
+        }
+
+        /* ── education: left-right page-flip wobble ── */
+        @keyframes tv-wobble {
+          0%, 100% { transform: rotate(0deg);  }
+          20%       { transform: rotate(-10deg); }
+          60%       { transform: rotate(10deg);  }
+          80%       { transform: rotate(-4deg);  }
+        }
+        .tv-wobble {
+          display: inline-block; transform-origin: center bottom;
+          animation: tv-wobble 3s ease-in-out infinite;
+          font-size: 28px; line-height: 1;
+        }
+
+        /* ── relief: urgent red-glow flash (emergency siren) ── */
+        @keyframes tv-flash {
+          0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,50,50,0.3)); }
+          25%       { transform: scale(1.28); filter: drop-shadow(0 0 12px rgba(255,50,50,1));  }
+          50%       { transform: scale(1);    filter: drop-shadow(0 0 2px rgba(255,50,50,0.2)); }
+          75%       { transform: scale(1.18); filter: drop-shadow(0 0 8px rgba(255,100,0,0.9));}
+        }
+        .tv-flash {
+          display: inline-block; transform-origin: center;
+          animation: tv-flash 0.7s ease-in-out infinite;
+          font-size: 28px; line-height: 1;
         }
       `}</style>
 
-      {/* SVG — viewBox taller than wide to fit the bottom "EDUCATION" label */}
-      <svg viewBox="0 0 340 348" style={{ width: '100%', height: 'auto' }}>
+      {/* viewBox 340 × 350 — extra 10px at bottom keeps EDUCATION label inside */}
+      <svg viewBox="0 0 340 350" style={{ width: '100%', height: 'auto' }}>
         <defs>
           <radialGradient id="tg-core" cx="50%" cy="49%" r="50%">
             <stop offset="0%"   stopColor="#FFD700" stopOpacity="0.28" />
@@ -61,11 +107,11 @@ function TrustVisual() {
             from="0 170 170" to="360 170 170" dur="30s" repeatCount="indefinite" />
         </circle>
 
-        {/* Static mid ring */}
+        {/* Mid ring */}
         <circle cx="170" cy="170" r="112" fill="none"
           stroke="rgba(255,215,0,0.05)" strokeWidth="1" />
 
-        {/* Dashed spoke lines from center to each satellite */}
+        {/* Dashed spoke lines */}
         {satellites.map((s, i) => (
           <line key={i} x1="170" y1="170" x2={s.cx} y2={s.cy}
             stroke="rgba(255,215,0,0.18)" strokeWidth="1" strokeDasharray="5 5" />
@@ -82,72 +128,74 @@ function TrustVisual() {
               fill="#FFD700"
               opacity={0.85 - j * 0.28}
               filter="url(#tg-blur)">
-              <animateMotion
-                dur={dur}
+              <animateMotion dur={dur}
                 begin={`-${(j * durSec / 3).toFixed(2)}s`}
-                repeatCount="indefinite"
-                path={path} />
+                repeatCount="indefinite" path={path} />
             </circle>
           ))
         })}
 
-        {/* Heartbeat-synced red glow halo behind center */}
+        {/* Heartbeat-synced red glow halo */}
         <circle cx="170" cy="170" r="68" fill="url(#tg-red)">
-          <animate attributeName="r"       values="60;76;62;72;60" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.6;1;0.7;0.9;0.6" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="r"       values="60;78;62;73;60" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.5;1;0.65;0.9;0.5" dur="0.85s" repeatCount="indefinite" />
         </circle>
 
         {/* Gold glow halo */}
         <circle cx="170" cy="170" r="62" fill="url(#tg-core)">
-          <animate attributeName="r"       values="58;70;58" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.5;0.9;0.5" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="r"       values="58;72;58" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.5;0.95;0.5" dur="0.85s" repeatCount="indefinite" />
         </circle>
 
-        {/* Expanding pulse ring — synced to heartbeat */}
+        {/* Expanding pulse ring */}
         <circle cx="170" cy="170" r="50" fill="none"
-          stroke="rgba(255,80,80,0.5)" strokeWidth="1.5">
-          <animate attributeName="r"       values="48;64;50;60;48" dur="0.85s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.8;0;0.6;0;0.8" dur="0.85s" repeatCount="indefinite" />
+          stroke="rgba(255,80,80,0.55)" strokeWidth="1.5">
+          <animate attributeName="r"       values="48;66;50;62;48" dur="0.85s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.9;0;0.6;0;0.9" dur="0.85s" repeatCount="indefinite" />
         </circle>
 
         {/* Center dark circle */}
-        <circle cx="170" cy="170" r="46"
-          fill="rgba(6,6,6,0.92)" stroke="#FFD700" strokeWidth="1.5" />
+        <circle cx="170" cy="170" r="48"
+          fill="rgba(6,6,6,0.93)" stroke="#FFD700" strokeWidth="1.5" />
 
-        {/* ❤️ — rendered as foreignObject so CSS animation works perfectly */}
-        <foreignObject x="142" y="142" width="56" height="56">
+        {/* ❤️ beating heart — foreignObject gives full CSS animation */}
+        <foreignObject x="138" y="136" width="64" height="52">
           <div xmlns="http://www.w3.org/1999/xhtml"
-            style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}>
             <span className="zariya-heart">❤️</span>
           </div>
         </foreignObject>
 
         {/* ZARIYA wordmark */}
-        <text x="170" y="188" textAnchor="middle"
-          fill="#FFD700" fontSize="7.5" letterSpacing="3.5"
+        <text x="170" y="191" textAnchor="middle"
+          fill="#FFD700" fontSize="8" letterSpacing="3.5"
           fontFamily="'Bebas Neue', sans-serif">ZARIYA</text>
 
-        {/* Satellite nodes + icons + labels — all in SVG coordinate space */}
+        {/* Satellite nodes */}
         {satellites.map((s, i) => (
           <g key={i}>
             {/* Glow halo */}
-            <circle cx={s.cx} cy={s.cy} r="34"
+            <circle cx={s.cx} cy={s.cy} r="38"
               fill="rgba(255,215,0,0.06)" filter="url(#tg-blur)">
-              <animate attributeName="opacity" values="0.3;0.85;0.3"
+              <animate attributeName="opacity" values="0.3;0.9;0.3"
                 dur={`${2 + i * 0.35}s`} repeatCount="indefinite" />
             </circle>
-            {/* Circle border */}
-            <circle cx={s.cx} cy={s.cy} r="30"
-              fill="rgba(6,6,6,0.92)" stroke="rgba(255,215,0,0.5)" strokeWidth="1.5">
-              <animate attributeName="stroke-opacity" values="0.35;0.9;0.35"
+            {/* Circle border — larger r=34 for bigger icons */}
+            <circle cx={s.cx} cy={s.cy} r="34"
+              fill="rgba(6,6,6,0.93)" stroke="rgba(255,215,0,0.55)" strokeWidth="1.5">
+              <animate attributeName="stroke-opacity" values="0.35;0.95;0.35"
                 dur={`${2 + i * 0.35}s`} repeatCount="indefinite" />
             </circle>
-            {/* Emoji icon (inside circle) */}
-            <text x={s.cx} y={s.cy} textAnchor="middle" dominantBaseline="middle"
-              fontSize="17">{s.icon}</text>
-            {/* Label (outside circle, in SVG units — never clips) */}
-            <text x={s.lx} y={s.ly} textAnchor={s.la}
-              fill="rgba(255,215,0,0.72)" fontSize="7" letterSpacing="1.8"
+            {/* Animated emoji icon via foreignObject */}
+            <foreignObject x={s.cx - 22} y={s.cy - 22} width="44" height="44">
+              <div xmlns="http://www.w3.org/1999/xhtml"
+                style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}>
+                <span className={s.anim}>{s.icon}</span>
+              </div>
+            </foreignObject>
+            {/* Label outside circle */}
+            <text x={s.lx} y={s.ly} textAnchor="middle"
+              fill="rgba(255,215,0,0.75)" fontSize="7.5" letterSpacing="2"
               fontFamily="'Space Grotesk', sans-serif" fontWeight="600">
               {s.label}
             </text>
