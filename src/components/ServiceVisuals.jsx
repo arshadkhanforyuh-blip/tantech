@@ -206,7 +206,7 @@ export function ShopifyVisual() {
    4. TAXATION & COMPLIANCE — chart + checklist
 ───────────────────────────────────────────── */
 const TAX_BARS   = [{ q: 'Q1', v: 65 }, { q: 'Q2', v: 78 }, { q: 'Q3', v: 55 }, { q: 'Q4', v: 92 }]
-const CHECKS     = ['GST Filing', 'TDS Returns', 'Income Tax', 'Audit Report', 'Compliance Cert']
+const CHECKS     = ['Federal Tax Filing', 'State & Local Tax', 'IRS Compliance', 'Payroll 941/940', 'Entity Structuring']
 
 export function TaxVisual() {
   const [grown, setGrown] = useState(false)
