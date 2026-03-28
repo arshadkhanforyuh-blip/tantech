@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { lazy, Suspense, useEffect, Component } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, Component } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
 class ErrorBoundary extends Component {
@@ -39,7 +39,8 @@ const RPO               = lazy(() => import('./pages/services/RPO'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => {
+  // useLayoutEffect fires before paint — scroll resets instantly, no flash of old position
+  useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
   return null

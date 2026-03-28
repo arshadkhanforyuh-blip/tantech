@@ -112,6 +112,18 @@ button {
   line-height: 1.8;
 }
 
+/* ── BUTTON ANIMATIONS ── */
+@keyframes btn-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,215,0,0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(255,215,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+}
+
+@keyframes btn-glow {
+  0%, 100% { box-shadow: 0 0 18px rgba(255,215,0,0.3), 0 6px 28px rgba(255,215,0,0.2); }
+  50%       { box-shadow: 0 0 32px rgba(255,215,0,0.6), 0 6px 40px rgba(255,215,0,0.35); }
+}
+
 /* Buttons */
 .btn-primary {
   display: inline-flex;
@@ -123,14 +135,21 @@ button {
   font-family: var(--font-head);
   font-size: 18px;
   letter-spacing: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  position: relative;
+  animation: btn-glow 3s ease-in-out infinite;
 }
 
 .btn-primary:hover {
   background: var(--yellow-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.35);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 40px rgba(255,215,0,0.7), 0 12px 40px rgba(255,215,0,0.4);
+  animation: btn-pulse 0.6s ease-out, btn-glow 3s ease-in-out infinite;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(1.01);
 }
 
 .btn-outline {
@@ -144,14 +163,21 @@ button {
   font-family: var(--font-head);
   font-size: 18px;
   letter-spacing: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  position: relative;
 }
 
 .btn-outline:hover {
-  background: rgba(255, 215, 0, 0.12);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.18);
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 24px rgba(255,215,0,0.3), 0 8px 32px rgba(255,215,0,0.15), inset 0 0 20px rgba(255,215,0,0.05);
+  border-color: var(--yellow-light);
+  color: var(--yellow-light);
+}
+
+.btn-outline:active {
+  transform: translateY(-1px) scale(1.01);
 }
 
 .gold-line {
@@ -184,13 +210,26 @@ button {
 }
 
 .card:hover {
-  border-color: rgba(255, 215, 0, 0.45);
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.08);
-  background: rgba(12, 12, 12, 0.7);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 24px rgba(255,215,0,0.1), inset 0 1px 0 rgba(255,215,0,0.12);
+  background: rgba(14, 14, 14, 0.8);
 }
 
 .card:hover::before { opacity: 1; }
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes reveal-left {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes reveal-right {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
 /* ── GLASS SECTION ── */
 .glass-section {

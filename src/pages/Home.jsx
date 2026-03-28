@@ -387,13 +387,13 @@ function ClientsSection() {
   const doubled = [...clients, ...clients]
 
   return (
-    <div style={{ padding: '70px 0', borderTop: '1px solid rgba(255,215,0,0.08)', borderBottom: '1px solid rgba(255,215,0,0.08)', background: 'rgba(0,0,0,0.25)', overflow: 'hidden', backdropFilter: 'blur(4px)', position: 'relative' }}>
+    <div style={{ padding: '80px 0', borderTop: '1px solid rgba(255,215,0,0.1)', borderBottom: '1px solid rgba(255,215,0,0.1)', background: 'rgba(0,0,0,0.3)', overflow: 'hidden', backdropFilter: 'blur(4px)', position: 'relative' }}>
       {/* Fade edges */}
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(90deg, rgba(0,0,0,0.8) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(270deg, rgba(0,0,0,0.8) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
+      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 140, background: 'linear-gradient(90deg, rgba(0,0,0,0.9) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
+      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 140, background: 'linear-gradient(270deg, rgba(0,0,0,0.9) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
 
       <AnimatedSection>
-        <span className="section-label" style={{ textAlign: 'center', display: 'block', marginBottom: 36 }}>Trusted By</span>
+        <span className="section-label" style={{ textAlign: 'center', display: 'block', marginBottom: 40 }}>Trusted By</span>
       </AnimatedSection>
 
       <div
@@ -401,30 +401,30 @@ function ClientsSection() {
         onMouseEnter={() => { pauseRef.current = true }}
         onMouseLeave={() => { pauseRef.current = false }}
       >
-        <div ref={trackRef} style={{ display: 'flex', gap: 0, willChange: 'transform' }}>
+        <div ref={trackRef} style={{ display: 'flex', alignItems: 'center', gap: 0, willChange: 'transform' }}>
           {doubled.map((name, i) => (
             <div
               key={i}
               style={{
                 flexShrink: 0,
-                padding: '0 48px',
+                padding: '0 52px',
                 fontFamily: 'Space Grotesk, sans-serif',
-                fontSize: 13,
+                fontSize: 16,
                 fontWeight: 600,
-                letterSpacing: 3,
-                color: 'rgba(245,245,240,0.35)',
+                letterSpacing: 2,
+                color: 'rgba(245,245,240,0.45)',
                 textTransform: 'uppercase',
                 whiteSpace: 'nowrap',
                 transition: 'color 0.3s',
                 cursor: 'default',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 16,
+                gap: 20,
               }}
               onMouseEnter={e => { e.currentTarget.style.color = '#FFD700' }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,245,240,0.35)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,245,240,0.45)' }}
             >
-              <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,215,0,0.3)', display: 'inline-block', flexShrink: 0 }} />
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(255,215,0,0.4)', display: 'inline-block', flexShrink: 0 }} />
               {name}
             </div>
           ))}

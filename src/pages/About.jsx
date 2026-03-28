@@ -271,11 +271,12 @@ export default function About() {
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: 2,
               marginTop: 48,
+              alignItems: 'stretch',
             }}
             className="values-grid"
           >
             {values.map((v, i) => (
-              <AnimatedSection key={i} delay={i * 0.1} style={{ height: '100%' }}>
+              <AnimatedSection key={i} delay={i * 0.1} style={{ height: '100%', display: 'flex' }}>
                 <div
                   style={{
                     background: 'rgba(8,8,8,0.68)',
@@ -284,7 +285,8 @@ export default function About() {
                     padding: '40px 28px',
                     transition: 'all 0.3s',
                     cursor: 'default',
-                    flex: 1,
+                    width: '100%',
+                    boxSizing: 'border-box',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = 'rgba(255,215,0,0.03)'

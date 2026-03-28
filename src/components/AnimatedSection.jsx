@@ -10,22 +10,24 @@ export default function AnimatedSection({
   once = true,
 }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once, margin: '-60px' })
+  const inView = useInView(ref, { once, margin: '-40px' })
+
+  const distance = direction === 'up' || direction === 'down' ? 44 : 50
 
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === 'up' ? 32 : direction === 'down' ? -32 : 0,
-      x: direction === 'left' ? 32 : direction === 'right' ? -32 : 0,
+      y: direction === 'up' ? distance : direction === 'down' ? -distance : 0,
+      x: direction === 'left' ? distance : direction === 'right' ? -distance : 0,
     },
     visible: {
       opacity: 1,
       y: 0,
       x: 0,
       transition: {
-        duration: 0.55,
+        duration: 0.6,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.16, 1, 0.3, 1], // expo out — snappy spring feel
       },
     },
   }
