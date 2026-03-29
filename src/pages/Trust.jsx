@@ -373,7 +373,7 @@ export default function Trust() {
           {[
             'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&h=460&q=80',
             'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=700&h=460&q=80',
-            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&h=460&q=80',
+            'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=700&h=460&q=80',
           ].map((src, i) => (
             <div key={i} style={{ height: 380, position: 'relative', overflow: 'hidden' }}>
               <img
