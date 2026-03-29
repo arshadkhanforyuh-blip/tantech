@@ -652,8 +652,8 @@ export default function Home() {
       {/* ── IMPACT PHOTO STRIP ── */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: 380, overflow: 'hidden' }} className="home-impact-gallery">
         {[
-          'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&h=500&q=80',
-          'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&h=500&q=80',
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&h=500&q=80',
+          'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&h=500&q=80',
         ].map((src, i) => (
           <div key={i} style={{ position: 'relative', overflow: 'hidden' }}>
             <img src={src} alt="" loading="lazy"
