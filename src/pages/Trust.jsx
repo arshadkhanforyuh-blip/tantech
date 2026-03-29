@@ -24,9 +24,9 @@ function TrustVisual() {
         /* transform-box + transform-origin ensure scale/rotate from element centre in SVG */
         @keyframes zariya-beat {
           0%, 100% { transform: scale(1);    }
-          12%       { transform: scale(1.5);  }
-          24%       { transform: scale(1.06); }
-          38%       { transform: scale(1.32); }
+          12%       { transform: scale(1.24); }
+          24%       { transform: scale(1.05); }
+          38%       { transform: scale(1.14); }
           56%       { transform: scale(1);    }
         }
         .zariya-heart {
@@ -47,7 +47,7 @@ function TrustVisual() {
         .tv-siren { animation:tv-siren 0.65s ease-in-out infinite; }
       `}</style>
 
-      <svg viewBox="0 0 340 350" style={{ width: '100%', height: 'auto' }}>
+      <svg viewBox="0 0 340 350" overflow="hidden" style={{ width: '100%', height: 'auto' }}>
         <defs>
           {/* Static gradients — no per-frame cost */}
           <radialGradient id="tg-core" cx="50%" cy="50%" r="50%">
@@ -364,6 +364,46 @@ export default function Trust() {
         <style>{`
           .mission-grid { grid-template-columns: 1fr 1fr; }
           @media (max-width: 768px) { .mission-grid { grid-template-columns: 1fr !important; } }
+        `}</style>
+      </div>
+
+      {/* ── COMMUNITY PHOTO STRIP ── */}
+      <div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }} className="impact-gallery">
+          {[
+            'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&h=460&q=80',
+            'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=700&h=460&q=80',
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&h=460&q=80',
+          ].map((src, i) => (
+            <div key={i} style={{ height: 380, position: 'relative', overflow: 'hidden' }}>
+              <img
+                src={src}
+                alt=""
+                loading="lazy"
+                style={{
+                  width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+                  filter: 'grayscale(100%) brightness(0.3) contrast(1.1)',
+                  transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease',
+                }}
+                onError={e => { e.currentTarget.style.display = 'none' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.06)'; e.currentTarget.style.filter = 'grayscale(60%) brightness(0.45) contrast(1.1)' }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.filter = 'grayscale(100%) brightness(0.3) contrast(1.1)' }}
+              />
+              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(135deg, rgba(255,215,0,0.1) 0%, transparent 60%)' }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 70, pointerEvents: 'none', background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, transparent 100%)' }} />
+              {i === 1 && (
+                <div style={{ position: 'absolute', bottom: 20, left: 0, right: 0, textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontSize: 10, letterSpacing: 4, color: 'rgba(255,215,0,0.55)', textTransform: 'uppercase', pointerEvents: 'none' }}>
+                  Community Impact
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.4) 30%, rgba(255,215,0,0.4) 70%, transparent)' }} />
+        <style>{`
+          .impact-gallery > div { border-right: 1px solid rgba(255,215,0,0.12); }
+          .impact-gallery > div:last-child { border-right: none; }
+          @media(max-width:768px){ .impact-gallery{ grid-template-columns:1fr!important; } .impact-gallery>div{ height:240px!important; } }
         `}</style>
       </div>
 

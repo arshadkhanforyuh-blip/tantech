@@ -649,6 +649,30 @@ export default function Home() {
       {/* ── TESTIMONIALS — sliding carousel ── */}
       <TestimonialsSection />
 
+      {/* ── IMPACT PHOTO STRIP ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: 380, overflow: 'hidden' }} className="home-impact-gallery">
+        {[
+          'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&h=500&q=80',
+          'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&h=500&q=80',
+        ].map((src, i) => (
+          <div key={i} style={{ position: 'relative', overflow: 'hidden' }}>
+            <img src={src} alt="" loading="lazy"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+                filter: 'grayscale(100%) brightness(0.28) contrast(1.2)',
+                transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease' }}
+              onError={e => { e.currentTarget.parentElement.style.background = '#0a0a0a' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.06)'; e.currentTarget.style.filter = 'grayscale(50%) brightness(0.44) contrast(1.1)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.filter = 'grayscale(100%) brightness(0.28) contrast(1.2)' }}
+            />
+            <div style={{ position: 'absolute', inset: 0, background: i === 0 ? 'linear-gradient(135deg, rgba(255,215,0,0.07) 0%, transparent 60%)' : 'linear-gradient(225deg, rgba(255,215,0,0.05) 0%, transparent 60%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', bottom: 28, left: 28, fontFamily: 'Bebas Neue, sans-serif', fontSize: 11, letterSpacing: 4, color: 'rgba(255,215,0,0.55)', textTransform: 'uppercase' }}>
+              {i === 0 ? 'Our Team' : 'Our Workspace'}
+            </div>
+          </div>
+        ))}
+        <style>{`@media(max-width:768px){ .home-impact-gallery{ grid-template-columns:1fr!important; height:auto!important; } .home-impact-gallery>div{ height:220px; } }`}</style>
+      </div>
+
       {/* ── CLIENTS — marquee strip ── */}
       <ClientsSection />
 
