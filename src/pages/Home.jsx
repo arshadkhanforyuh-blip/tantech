@@ -403,29 +403,41 @@ function ClientsSection() {
       >
         <div ref={trackRef} style={{ display: 'flex', alignItems: 'center', gap: 0, willChange: 'transform' }}>
           {doubled.map((name, i) => (
-            <div
-              key={i}
-              style={{
-                flexShrink: 0,
-                padding: '0 52px',
-                fontFamily: 'Space Grotesk, sans-serif',
-                fontSize: 16,
-                fontWeight: 600,
-                letterSpacing: 2,
-                color: 'rgba(245,245,240,0.45)',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
-                transition: 'color 0.3s',
-                cursor: 'default',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 20,
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = '#FFD700' }}
-              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(245,245,240,0.45)' }}
-            >
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'rgba(255,215,0,0.4)', display: 'inline-block', flexShrink: 0 }} />
-              {name}
+            <div key={i} style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+              {/* Logo badge */}
+              <div
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '0 44px',
+                  cursor: 'default',
+                  transition: 'opacity 0.3s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.querySelector('.cl-mono').style.borderColor = '#FFD700'; e.currentTarget.querySelector('.cl-mono').style.color = '#FFD700'; e.currentTarget.querySelector('.cl-name').style.color = 'rgba(245,245,240,0.85)' }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.querySelector('.cl-mono').style.borderColor = 'rgba(255,215,0,0.3)'; e.currentTarget.querySelector('.cl-mono').style.color = 'rgba(255,215,0,0.65)'; e.currentTarget.querySelector('.cl-name').style.color = 'rgba(245,245,240,0.4)' }}
+              >
+                <div className="cl-mono" style={{
+                  width: 36, height: 36, flexShrink: 0,
+                  border: '1px solid rgba(255,215,0,0.3)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'Bebas Neue, sans-serif', fontSize: 13, letterSpacing: 1,
+                  color: 'rgba(255,215,0,0.65)',
+                  background: 'rgba(255,215,0,0.04)',
+                  transition: 'border-color 0.3s, color 0.3s',
+                }}>
+                  {name.split(' ').filter(w => w.length > 0).slice(0, 2).map(w => w[0].toUpperCase()).join('')}
+                </div>
+                <span className="cl-name" style={{
+                  fontFamily: 'Space Grotesk, sans-serif',
+                  fontSize: 13, fontWeight: 600, letterSpacing: 2,
+                  color: 'rgba(245,245,240,0.4)',
+                  textTransform: 'uppercase', whiteSpace: 'nowrap',
+                  transition: 'color 0.3s',
+                }}>
+                  {name}
+                </span>
+              </div>
+              {/* Separator */}
+              <div style={{ width: 1, height: 22, background: 'rgba(255,215,0,0.15)', flexShrink: 0 }} />
             </div>
           ))}
         </div>

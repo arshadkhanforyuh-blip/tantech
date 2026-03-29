@@ -63,6 +63,10 @@ const service = {
     },
   ],
   icon: '🤖',
+  photos: [
+    'https://images.unsplash.com/photo-04HMalMSPrk?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo--tWiibT5N2M?auto=format&fit=crop&w=900&h=500&q=80',
+  ],
 }
 
 export default function AITools() {

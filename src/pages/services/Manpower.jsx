@@ -63,6 +63,10 @@ const service = {
     },
   ],
   icon: '👥',
+  photos: [
+    'https://images.unsplash.com/photo-fm4B1xWEIsU?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo-lWWWz8YOz_A?auto=format&fit=crop&w=900&h=500&q=80',
+  ],
 }
 
 export default function Manpower() {

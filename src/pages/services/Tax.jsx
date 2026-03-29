@@ -63,6 +63,10 @@ const service = {
     },
   ],
   icon: '📊',
+  photos: [
+    'https://images.unsplash.com/photo-mOY8Xjgys1M?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo--cyjwW1betc?auto=format&fit=crop&w=900&h=500&q=80',
+  ],
 }
 
 export default function Tax() {

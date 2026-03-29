@@ -9,7 +9,7 @@ const pageVariants = {
 }
 
 export default function ServicePage({ service, heroVisual }) {
-  const { label, title, subtitle, description, features = [], process = [], stack = [], icon } = service
+  const { label, title, subtitle, description, features = [], process = [], stack = [], icon, photos = [] } = service
 
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
@@ -78,6 +78,51 @@ export default function ServicePage({ service, heroVisual }) {
               ))}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── PHOTO GALLERY ── */}
+      {photos.length >= 2 && (
+        <div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', position: 'relative' }} className="service-gallery">
+            {photos.map((url, i) => (
+              <div key={i} style={{ height: 420, position: 'relative', overflow: 'hidden' }}>
+                <img
+                  src={url}
+                  alt=""
+                  loading="lazy"
+                  style={{
+                    width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+                    filter: 'grayscale(100%) brightness(0.32) contrast(1.15)',
+                    transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'scale(1.06)'
+                    e.currentTarget.style.filter = 'grayscale(60%) brightness(0.48) contrast(1.1)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'scale(1)'
+                    e.currentTarget.style.filter = 'grayscale(100%) brightness(0.32) contrast(1.15)'
+                  }}
+                />
+                <div style={{
+                  position: 'absolute', inset: 0, pointerEvents: 'none',
+                  background: i === 0
+                    ? 'linear-gradient(135deg, rgba(255,215,0,0.13) 0%, transparent 55%)'
+                    : 'linear-gradient(225deg, rgba(255,215,0,0.10) 0%, transparent 55%)',
+                }} />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 90, pointerEvents: 'none', background: 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, transparent 100%)' }} />
+                {i === 0 && (
+                  <div style={{ position: 'absolute', bottom: 22, left: 28, fontFamily: 'Space Grotesk, sans-serif', fontSize: 10, letterSpacing: 4, color: 'rgba(255,215,0,0.55)', textTransform: 'uppercase' }}>
+                    In Practice
+                  </div>
+                )}
+              </div>
+            ))}
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: 1, background: 'rgba(255,215,0,0.18)', zIndex: 2, pointerEvents: 'none' }} />
+          </div>
+          <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.45) 30%, rgba(255,215,0,0.45) 70%, transparent)' }} />
+          <style>{`@media(max-width:640px){.service-gallery{grid-template-columns:1fr!important;}.service-gallery>div{height:260px!important;}}`}</style>
         </div>
       )}
 
