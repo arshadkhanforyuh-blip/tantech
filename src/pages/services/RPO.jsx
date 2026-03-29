@@ -65,8 +65,8 @@ const service = {
   ],
   icon: '🚀',
   photos: [
-    'https://images.unsplash.com/photo-D8yv3j37S9Y?auto=format&fit=crop&w=900&h=500&q=80',
-    'https://images.unsplash.com/photo-AP-lN7F36Ao?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo-1622676017526-4a8e99f5fdf3?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&h=500&q=80',
   ],
 }
 

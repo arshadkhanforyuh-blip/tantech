@@ -96,6 +96,7 @@ export default function ServicePage({ service, heroVisual }) {
                     filter: 'grayscale(100%) brightness(0.32) contrast(1.15)',
                     transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s ease',
                   }}
+                  onError={e => { e.currentTarget.style.display = 'none' }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'scale(1.06)'
                     e.currentTarget.style.filter = 'grayscale(60%) brightness(0.48) contrast(1.1)'

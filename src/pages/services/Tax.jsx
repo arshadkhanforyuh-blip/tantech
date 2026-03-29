@@ -64,8 +64,8 @@ const service = {
   ],
   icon: '📊',
   photos: [
-    'https://images.unsplash.com/photo-mOY8Xjgys1M?auto=format&fit=crop&w=900&h=500&q=80',
-    'https://images.unsplash.com/photo--cyjwW1betc?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&h=500&q=80',
+    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&h=500&q=80',
   ],
 }
 
