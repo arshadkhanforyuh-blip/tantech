@@ -140,8 +140,7 @@ export default function ServicePage({ service, heroVisual }) {
                 <AnimatedSection key={i} delay={i * 0.06}>
                   <div
                     style={{
-                      background: 'rgba(15,15,15,0.65)',
-                      backdropFilter: 'blur(10px)',
+                      background: 'rgba(18,18,18,0.95)',
                       border: '1px solid rgba(255,215,0,0.15)',
                       padding: '12px 24px',
                       fontFamily: 'Space Grotesk, sans-serif',
@@ -185,8 +184,7 @@ export default function ServicePage({ service, heroVisual }) {
                 <AnimatedSection key={i} delay={i * 0.1} style={{ height: '100%' }}>
                   <div
                     style={{
-                      background: 'rgba(8,8,8,0.7)',
-                      backdropFilter: 'blur(12px)',
+                      background: 'rgba(10,10,10,0.98)',
                       border: '1px solid rgba(255,215,0,0.1)',
                       padding: '40px 28px',
                       position: 'relative',

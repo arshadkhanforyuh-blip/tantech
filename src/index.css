@@ -185,11 +185,9 @@ button {
   margin-bottom: 24px;
 }
 
-/* ── GLASS CARD — animation shows through ── */
+/* ── GLASS CARD — solid bg, no backdrop-filter (too costly on repeated elements) ── */
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(12, 12, 12, 0.97);
   border: 1px solid var(--glass-border);
   border-radius: 4px;
   padding: 32px;

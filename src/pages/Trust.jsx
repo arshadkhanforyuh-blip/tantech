@@ -65,10 +65,16 @@ function TrustVisual() {
           <clipPath id="relief-clip">
             <circle cx="48" cy="170" r="33" />
           </clipPath>
-          {/* Clip the heart so it can never escape the center circle, regardless of OS emoji rendering */}
+          {/* Clip the heart so it can never escape the center circle */}
           <clipPath id="heart-clip">
             <circle cx="170" cy="170" r="42" />
           </clipPath>
+          {/* Heart gradient: bright centre → deep red edge, gives 3-D depth */}
+          <radialGradient id="heart-fill" cx="40%" cy="35%" r="65%">
+            <stop offset="0%"   stopColor="#ff7070" />
+            <stop offset="60%"  stopColor="#e82222" />
+            <stop offset="100%" stopColor="#9a0000" />
+          </radialGradient>
         </defs>
 
         {/* Outer ring — slow rotate, GPU composited */}
@@ -114,10 +120,14 @@ function TrustVisual() {
         {/* Center circle */}
         <circle cx="170" cy="170" r="46" fill="rgba(6,6,6,0.96)" stroke="#FFD700" strokeWidth="1.5" />
 
-        {/* Heart — real SVG path (not emoji) so dimensions are exact across all OSes */}
+        {/* Heart — proper cubic-bezier heart path, gradient fill, highlight glint */}
         <g className="zariya-heart" clipPath="url(#heart-clip)">
-          <path fill="#ff3a3a"
-            d="M170,164 C170,156 158,152 158,162 C158,171 163,176 170,183 C177,176 182,171 182,162 C182,152 170,156 170,164 Z" />
+          {/* Main heart shape */}
+          <path fill="url(#heart-fill)"
+            d="M170,157 C167,151 155,149 155,160 C155,168 161,174 170,182 C179,174 185,168 185,160 C185,149 173,151 170,157 Z" />
+          {/* Glint — top-left highlight to add sheen */}
+          <ellipse cx="163" cy="159" rx="5" ry="3.5"
+            fill="white" opacity="0.22" transform="rotate(-30, 163, 159)" />
         </g>
         <text x="170" y="190" textAnchor="middle" dominantBaseline="auto"
           fill="#FFD700" fontSize="8" letterSpacing="3.5"
