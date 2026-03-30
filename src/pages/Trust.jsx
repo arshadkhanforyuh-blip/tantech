@@ -65,6 +65,10 @@ function TrustVisual() {
           <clipPath id="relief-clip">
             <circle cx="48" cy="170" r="33" />
           </clipPath>
+          {/* Clip the heart so it can never escape the center circle, regardless of OS emoji rendering */}
+          <clipPath id="heart-clip">
+            <circle cx="170" cy="170" r="42" />
+          </clipPath>
         </defs>
 
         {/* Outer ring — slow rotate, GPU composited */}
@@ -110,9 +114,11 @@ function TrustVisual() {
         {/* Center circle */}
         <circle cx="170" cy="170" r="46" fill="rgba(6,6,6,0.96)" stroke="#FFD700" strokeWidth="1.5" />
 
-        {/* ❤️ — SVG text, no foreignObject */}
-        <text x="170" y="169" textAnchor="middle" dominantBaseline="middle"
-          fontSize="28" className="zariya-heart">❤️</text>
+        {/* Heart — real SVG path (not emoji) so dimensions are exact across all OSes */}
+        <g className="zariya-heart" clipPath="url(#heart-clip)">
+          <path fill="#ff3a3a"
+            d="M170,164 C170,156 158,152 158,162 C158,171 163,176 170,183 C177,176 182,171 182,162 C182,152 170,156 170,164 Z" />
+        </g>
         <text x="170" y="190" textAnchor="middle" dominantBaseline="auto"
           fill="#FFD700" fontSize="8" letterSpacing="3.5"
           fontFamily="'Bebas Neue', sans-serif">ZARIYA</text>
