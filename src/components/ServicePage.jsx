@@ -120,7 +120,6 @@ export default function ServicePage({ service, heroVisual }) {
                 )}
               </div>
             ))}
-            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: 1, background: 'rgba(255,215,0,0.18)', zIndex: 2, pointerEvents: 'none' }} />
           </div>
           <div style={{ height: 2, background: 'linear-gradient(90deg, transparent, rgba(255,215,0,0.45) 30%, rgba(255,215,0,0.45) 70%, transparent)' }} />
           <style>{`@media(max-width:640px){.service-gallery{grid-template-columns:1fr!important;}.service-gallery>div{height:260px!important;}}`}</style>
