@@ -210,6 +210,16 @@ export default function Footer() {
             >
               +1 (773) 444-8207
             </a>
+            <a
+              href="https://maps.google.com/?q=200+Continental+Drive+Suite+401+Newark+Delaware+19713"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 13, color: 'rgba(245,245,240,0.4)', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => (e.target.style.color = '#FFD700')}
+              onMouseLeave={(e) => (e.target.style.color = 'rgba(245,245,240,0.4)')}
+            >
+              200 Continental Drive, Suite 401, Newark, DE 19713
+            </a>
           </div>
         </div>
       </div>

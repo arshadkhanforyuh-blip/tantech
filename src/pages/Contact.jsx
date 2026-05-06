@@ -335,6 +335,7 @@ export default function Contact() {
                   { icon: '✉️', label: 'General', value: 'info@tantech-llc.com', href: 'mailto:info@tantech-llc.com' },
                   { icon: '💼', label: 'HR & Staffing', value: 'hr@tantech-llc.com', href: 'mailto:hr@tantech-llc.com' },
                   { icon: '📞', label: 'Phone', value: '+1 (773) 444-8207', href: 'tel:+17734448207' },
+                  { icon: '📍', label: 'Address', value: '200 Continental Drive, Suite 401, Newark, Delaware 19713', href: 'https://maps.google.com/?q=200+Continental+Drive+Suite+401+Newark+Delaware+19713' },
                 ].map((item) => (
                   <a
                     key={item.value}
