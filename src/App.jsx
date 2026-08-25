@@ -36,6 +36,7 @@ const Tax               = lazy(() => import('./pages/services/Tax'))
 const BenchSales        = lazy(() => import('./pages/services/BenchSales'))
 const Manpower          = lazy(() => import('./pages/services/Manpower'))
 const RPO               = lazy(() => import('./pages/services/RPO'))
+const Legal             = lazy(() => import('./pages/Legal'))
 const NotFound          = lazy(() => import('./pages/NotFound'))
 
 function ScrollToTop() {
@@ -102,6 +103,8 @@ export default function App() {
             <Route path="/bench-sales"        element={<BenchSales />} />
             <Route path="/manpower-staffing"  element={<Manpower />} />
             <Route path="/rpo"                element={<RPO />} />
+            <Route path="/privacy"            element={<Legal />} />
+            <Route path="/terms"              element={<Legal />} />
             <Route path="*"                  element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -16,6 +16,8 @@ const quickLinks = [
   { label: 'Services', path: '/services' },
   { label: 'Trust Initiative', path: '/trust' },
   { label: 'Contact Us', path: '/contact' },
+  { label: 'Privacy Policy', path: '/privacy' },
+  { label: 'Terms & Conditions', path: '/terms' },
 ]
 
 export default function Footer() {
