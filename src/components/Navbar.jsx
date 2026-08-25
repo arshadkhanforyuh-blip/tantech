@@ -80,7 +80,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <img src="/logo-dark.png" alt="TanTech LLC"
+            <img src="/logo-dark.png" alt="Tantech LLC"
               style={{ height: 44, width: 'auto', filter: 'brightness(0) invert(1)' }}
               onError={(e) => { e.target.style.display = 'none' }} />
             <span style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 22, letterSpacing: 4, color: '#FFD700' }}>

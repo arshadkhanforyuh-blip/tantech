@@ -47,7 +47,7 @@ export default function Footer() {
             <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
               <img
                 src="/logo-dark.png"
-                alt="TanTech"
+                alt="Tantech"
                 style={{ height: 48, width: 'auto', filter: 'brightness(0) invert(1)' }}
                 onError={(e) => { e.target.style.display = 'none' }}
               />
@@ -193,7 +193,7 @@ export default function Footer() {
         {/* Divider */}
         <div style={{ borderTop: '1px solid rgba(255,215,0,0.1)', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
           <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 13, color: 'rgba(245,245,240,0.3)' }}>
-            © 2026 — All rights reserved. TanTech LLC
+            © 2026 — All rights reserved. Tantech LLC
           </p>
           <div style={{ display: 'flex', gap: 24 }}>
             <a

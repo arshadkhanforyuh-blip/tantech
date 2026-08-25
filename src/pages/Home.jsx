@@ -63,25 +63,25 @@ const stats = [
 
 const testimonials = [
   {
-    quote: 'The network TanTech provides is unparalleled. They managed our consultant placement lifecycle with incredible speed, connecting us with Tier-1 vendors and prime partners almost immediately. Our bench time has been virtually eliminated thanks to their strategic talent marketing.',
+    quote: 'The network Tantech provides is unparalleled. They managed our consultant placement lifecycle with incredible speed, connecting us with Tier-1 vendors and prime partners almost immediately. Our bench time has been virtually eliminated thanks to their strategic talent marketing.',
     name: 'NAS X Solution',
     role: 'Operations Manager',
     service: 'Bench Sales & Placement',
   },
   {
-    quote: 'TanTech delivered our enterprise platform ahead of schedule with zero compromises on quality. Their engineering team communicated every step of the way and built something we are genuinely proud to put our name on. The scalability has already proven itself under real traffic.',
+    quote: 'Tantech delivered our enterprise platform ahead of schedule with zero compromises on quality. Their engineering team communicated every step of the way and built something we are genuinely proud to put our name on. The scalability has already proven itself under real traffic.',
     name: 'Marcus L.',
     role: 'CTO, Veridia Systems',
     service: 'Software & Web Solutions',
   },
   {
-    quote: 'Our Shopify store revenue jumped 38% in the first two months after TanTech rebuilt the storefront. The custom Liquid work and performance optimizations they shipped were exactly what we needed. Conversion rate, load speed, mobile experience — all dramatically improved.',
+    quote: 'Our Shopify store revenue jumped 38% in the first two months after Tantech rebuilt the storefront. The custom Liquid work and performance optimizations they shipped were exactly what we needed. Conversion rate, load speed, mobile experience — all dramatically improved.',
     name: 'Priya N.',
     role: 'Head of eCommerce, ZenCart',
     service: 'Shopify Development',
   },
   {
-    quote: 'Navigating multi-state tax compliance as a growing US business was overwhelming until TanTech stepped in. They restructured our entity, cleaned up payroll filings, and gave us a clear compliance roadmap. We saved thousands in the first quarter alone.',
+    quote: 'Navigating multi-state tax compliance as a growing US business was overwhelming until Tantech stepped in. They restructured our entity, cleaned up payroll filings, and gave us a clear compliance roadmap. We saved thousands in the first quarter alone.',
     name: 'Derek H.',
     role: 'CFO, Bridgeway Logistics',
     service: 'Taxation & Compliance',
@@ -255,7 +255,7 @@ function LogoCard3D() {
         <img
           ref={logoRef}
           src="/logo-dark.png"
-          alt="TanTech LLC"
+          alt="Tantech LLC"
           style={{
             width: '70%',
             maxWidth: 280,

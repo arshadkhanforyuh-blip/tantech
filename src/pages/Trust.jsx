@@ -207,7 +207,7 @@ export default function Trust() {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,215,0,0.08)', border: '1px solid rgba(255,215,0,0.3)', padding: '6px 16px', marginBottom: 28 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#FFD700', display: 'inline-block' }} />
                 <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 11, letterSpacing: 3, color: '#FFD700', textTransform: 'uppercase' }}>
-                  Social Initiative by TanTech LLC
+                  Social Initiative by Tantech LLC
                 </span>
               </div>
               <h1 style={{ fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(48px, 7vw, 96px)', letterSpacing: 4, lineHeight: 0.9, color: '#F5F5F0', marginBottom: 20, textShadow: '0 4px 40px rgba(0,0,0,0.9)' }}>

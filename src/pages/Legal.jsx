@@ -2,8 +2,6 @@ import { useLocation } from 'react-router-dom'
 
 // ── SHARED LEGAL PAGE STYLES ────────────────────────────────────────────────
 const S = {
-  // solid bg: legal text must stay readable even if the WebGL backdrop fails to render
-  outer: { background: '#0A0A0A', minHeight: '100vh' },
   wrap: { maxWidth: 820, margin: '0 auto', padding: '160px 24px 100px' },
   h1: { fontFamily: 'Bebas Neue, sans-serif', fontSize: 'clamp(40px, 6vw, 64px)', letterSpacing: 4, color: '#FFD700', marginBottom: 8 },
   date: { fontFamily: 'Space Grotesk, sans-serif', fontSize: 13, color: 'rgba(245,245,240,0.4)', marginBottom: 48 },
@@ -16,7 +14,7 @@ const S = {
 }
 
 const CONTACT = {
-  company: 'TanTech LLC',
+  company: 'Tantech LLC',
   address: '200 Continental Drive, Suite 401, Newark, Delaware 19713, USA',
   email: 'info@tantech-llc.com',
   phone: '+1 (773) 444-8207',
@@ -29,7 +27,7 @@ function Privacy() {
       <p style={S.date}>Effective date: August 25, 2026</p>
 
       <p style={S.p}>
-        {CONTACT.company} (&ldquo;TanTech,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), located at {CONTACT.address}, respects your
+        {CONTACT.company} (&ldquo;Tantech,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), located at {CONTACT.address}, respects your
         privacy. This Privacy Policy explains what information we collect, how we use it, and the choices you have. It applies to
         this website (www.tantech-llc.com) and to communications we exchange with our clients, employees, and business contacts,
         including email, phone, and SMS text messaging.
@@ -37,7 +35,7 @@ function Privacy() {
 
       <h2 style={S.h2}>Information We Collect</h2>
       <ul style={S.ul}>
-        <li style={S.li}><span style={S.strong}>Contact information</span> you provide directly — such as your name, email address, mailing address, and phone number — when you fill out a form on our website, engage our services, or become an employee or client of TanTech.</li>
+        <li style={S.li}><span style={S.strong}>Contact information</span> you provide directly — such as your name, email address, mailing address, and phone number — when you fill out a form on our website, engage our services, or become an employee or client of Tantech.</li>
         <li style={S.li}><span style={S.strong}>Business and employment information</span> reasonably required to deliver our services, such as onboarding documents, scheduling preferences, and service correspondence.</li>
         <li style={S.li}><span style={S.strong}>Basic technical data</span> such as browser type and pages visited, used only to operate and improve this website.</li>
       </ul>
@@ -51,7 +49,7 @@ function Privacy() {
 
       <h2 style={S.h2}>SMS / Text Messaging Privacy</h2>
       <p style={S.p}>
-        If you have opted in to receive SMS text messages from TanTech, we use your mobile number solely to send the
+        If you have opted in to receive SMS text messages from Tantech, we use your mobile number solely to send the
         conversational and informational messages described in our <a style={S.a} href="/terms">SMS Terms &amp; Conditions</a> —
         such as appointment scheduling, onboarding and document reminders, and customer support replies. We do not use SMS for
         marketing, promotions, job postings, or recruiting advertisements.
@@ -114,13 +112,13 @@ function Terms() {
 
       <h2 style={S.h2}>SMS Terms &amp; Conditions</h2>
       <p style={S.p}>
-        <span style={S.strong}>Program description.</span> TanTech LLC sends conversational and informational SMS messages to
+        <span style={S.strong}>Program description.</span> Tantech LLC sends conversational and informational SMS messages to
         clients and employees who have opted in. Messages include appointment scheduling and confirmations, onboarding and
         document reminders, and customer support replies. We do not send marketing or promotional messages, job postings, or
         recruiting advertisements via SMS.
       </p>
       <p style={S.p}>
-        <span style={S.strong}>Opt-in.</span> You consent to receive SMS from TanTech by providing your mobile number and
+        <span style={S.strong}>Opt-in.</span> You consent to receive SMS from Tantech by providing your mobile number and
         agreeing to be contacted by text — for example, by checking the SMS consent box on one of our forms, or by giving us
         written or verbal consent during onboarding or service engagement. Consent is not a condition of any purchase or of
         employment.
@@ -175,5 +173,5 @@ function Terms() {
 // One route component for both pages — picks content by pathname
 export default function Legal() {
   const { pathname } = useLocation()
-  return <div style={S.outer}>{pathname === '/terms' ? <Terms /> : <Privacy />}</div>
+  return pathname === '/terms' ? <Terms /> : <Privacy />
 }

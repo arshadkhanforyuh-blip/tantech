@@ -86,7 +86,7 @@ export default function About() {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <AnimatedSection>
-            <span className="section-label">About TanTech</span>
+            <span className="section-label">About Tantech</span>
             <h1
               style={{
                 fontFamily: 'Bebas Neue, sans-serif',
@@ -152,7 +152,7 @@ export default function About() {
                   marginBottom: 40,
                 }}
               >
-                We help brands grow through strategy, design, and technology. At TanTech, we believe in a culture of continuous learning and collective success — turning ambitious ideas into scalable realities.
+                We help brands grow through strategy, design, and technology. At Tantech, we believe in a culture of continuous learning and collective success — turning ambitious ideas into scalable realities.
               </p>
               <Link to="/contact" className="btn-primary">Work With Us</Link>
             </AnimatedSection>
